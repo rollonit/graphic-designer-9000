@@ -8,8 +8,12 @@ public class Shape extends PShape {
 	int stroke;
 
 	public Shape(int mouseX, int mouseY, boolean draw, int stroke, int color) {
+		
 		this.stroke = color;
 		
+	}
+	
+	public Shape() {
 	}
 
 	void setup() {
