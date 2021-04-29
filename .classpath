@@ -11,6 +11,10 @@
 			<attribute name="javadoc_location" value="http://www.sojamo.de/libraries/controlP5/reference/index.html"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/core.jar"/>
+	<classpathentry kind="lib" path="lib/core.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://processing.github.io/processing-javadocs/core/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
