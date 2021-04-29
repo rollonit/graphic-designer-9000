@@ -21,4 +21,21 @@ public class Application extends PApplet {
 	public void draw() {
 		mainApp.draw();
 	}
+
+	// Button Events
+	public void save() {
+		mainApp.save();
+	}
+
+	public void add() {
+		mainApp.add();
+	}
+
+	public void addLayer() {
+		mainApp.addLayer();
+	}
+	
+	public void removeLayer() {
+		mainApp.removeLayer();
+	}
 }
