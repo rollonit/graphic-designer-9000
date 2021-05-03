@@ -34,8 +34,8 @@ public class Canvas {
 	public Canvas(PApplet pApplet) {
 		this.pApplet = pApplet;
 
-		layers = new ArrayList<>();
-		layerIndex = 0;
+		this.layers = new ArrayList<>();
+		this.layerIndex = 0;
 
 		//// UI Stuff////
 		cp5 = new ControlP5(this.pApplet);
@@ -167,8 +167,8 @@ public class Canvas {
 		}
 
 		if (creatingShape) {
-			pApplet.fill(objColorPicker.getColorValue());
-			pApplet.rect(shapeX, shapeY, -(shapeX - pApplet.mouseX), -(shapeY - pApplet.mouseY));
+			Shape.draw(pApplet, shapeX, shapeY, -(shapeX - pApplet.mouseX), -(shapeY - pApplet.mouseY),
+					this.objColorPicker.getColorValue(), this.getCurrentShapeType());
 		}
 	}
 

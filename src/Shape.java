@@ -90,4 +90,16 @@ public class Shape {
 		this.pApplet.shape(this.shape);
 	}
 
+	public static void draw(PApplet p, int x, int y, int h, int w, int color, ShapeType type) {
+		p.fill(color);
+		switch (type) {
+		case SQUARE:
+			p.rect(x, y, h, w);
+			break;
+		case TRIANGLE:
+			break;
+		case ELLIPSE:
+			break;
+		}
+	}
 }
