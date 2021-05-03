@@ -8,7 +8,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/controlP5.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="http://www.sojamo.de/libraries/controlP5/reference/index.html"/>
+			<attribute name="javadoc_location" value="http://www.sojamo.de/libraries/controlP5/reference/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/core.jar">
