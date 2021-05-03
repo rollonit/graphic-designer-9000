@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import controlP5.ColorPicker;
 import controlP5.ControlP5;
 import controlP5.DropdownList;
 import controlP5.Textfield;
 import controlP5.Textlabel;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -15,6 +15,9 @@ public class Canvas {
 
 	ArrayList<Layer> layers;
 	int layerIndex;
+
+	private int shapeX, shapeY;
+	private boolean creatingShape;
 
 	///// UI Stuff//////
 	ControlP5 cp5;
@@ -41,10 +44,11 @@ public class Canvas {
 		UIheadFont = pApplet.createFont("Arial", 18);
 		UIobjPropsLevel = 100;
 		UIobjButtonLevel = 350;
+		this.creatingShape = false;
 	}
 
 	public void init() {
-		
+
 		/////// UI STUFFF ///////
 		pApplet.background(25);
 		
@@ -92,7 +96,7 @@ public class Canvas {
 						.setSize(250, 120)
 						.setBarHeight(25)
 						.setItemHeight(30);
-		objType.addItem("Rectangle", "Rectangle");
+		objType.addItem("Square", "Square");
 		objType.addItem("Triangle", "Triangle");
 		objType.addItem("Eclipse", "Eclipse");
 		
@@ -102,7 +106,7 @@ public class Canvas {
 			.setSize(120, 30)
 			.setColorValue(UIcolor);
 		
-		cp5.addButton("add")
+		cp5.addButton("remove")
 			.setPosition(145, UIobjButtonLevel)
 			.setSize(120, 30)
 			.setColorValue(UIcolor);
@@ -144,47 +148,94 @@ public class Canvas {
 			.setColorValue(UIcolor);
 		
 		/////// END UI STUFF ////////
-		
 
-		
 		this.addLayer();
-		
+
 	}
 
 	public void draw() {
 		pApplet.background(25);
-		cp5.draw();
-		
-		//placeholder for art board
+
+		// placeholder for art board
 		pApplet.fill(backColorPicker.getColorValue());
 		pApplet.rect(280, 5, 720, 710);
+
+		cp5.draw();
+
+		for (Layer layer : layers) {
+			layer.draw();
+		}
+
+		if (creatingShape) {
+			pApplet.fill(objColorPicker.getColorValue());
+			pApplet.rect(shapeX, shapeY, -(shapeX - pApplet.mouseX), -(shapeY - pApplet.mouseY));
+		}
 	}
-	
+
 	public void save() {
 		System.out.println("Save Button Triggered!");
-		
+
 	}
-	
+
+	public void remove() {
+		System.out.println("Remove Button Triggered!");
+	}
+
 	public void add() {
 		System.out.println("Add Button Triggered");
-		layers.get(this.getCurrentLayerIndex()).addShape();
+		layers.get(this.getCurrentLayerIndex()).addShape(this.getCurrentShapeType());
 	}
-	
+
+	public void add(int beginX, int beginY, int endX, int endY) {
+		layers.get(this.getCurrentLayerIndex()).addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY,
+				objColorPicker.getColorValue());
+	}
+
 	public void addLayer() {
 		layers.add(new Layer(pApplet, layerList, layerIndex));
 		layerIndex++;
 	}
-	
+
 	public void removeLayer() {
 		layers.remove(this.getCurrentLayerIndex());
 		layerIndex--;
 	}
-	
+
 	public int getCurrentLayerIndex() {
 		String curSel = ((HashMap) (layerList.getItem((int) (layerList.getValue())))).get("value").toString();
 		int index = Integer.parseInt(String.valueOf(curSel.charAt(curSel.length() - 1)));
 		System.out.println("String: " + curSel + "\nIndex:" + index);
 		return index;
+	}
+
+	private String getCurrentShape() {
+		return ((HashMap) (objType.getItem((int) (objType.getValue())))).get("value").toString();
+	}
+
+	public ShapeType getCurrentShapeType() {
+		String s = getCurrentShape();
+		if (s.equals("Square"))
+			return ShapeType.SQUARE;
+		else if (s.equals("Triangle"))
+			return ShapeType.TRIANGLE;
+		else
+			return ShapeType.ELLIPSE;
+	}
+
+	public void beginShape() {
+		shapeX = pApplet.mouseX;
+		shapeY = pApplet.mouseY;
+		this.creatingShape = true;
+	}
+
+	public void endShape() {
+		int finalX = pApplet.mouseX;
+		int finalY = pApplet.mouseY;
+
+		System.out.println(
+				"Drag action performed!\nBEGIN X:" + shapeX + " Y:" + shapeY + "\nEND X:" + finalX + " Y:" + finalY);
+		this.add(shapeX, shapeY, finalX, finalY);
+		this.creatingShape = false;
 	}
 
 }

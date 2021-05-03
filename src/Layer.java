@@ -18,19 +18,41 @@ public class Layer {
 		layerDDList.addItem("Layer " + layerIndex, "Layer " + layerIndex);
 	}
 
-	public void addShape() {
+	public void addShape(ShapeType type) {
 		Shape s = new Shape(pApplet);
-		this.createSquare(640, 360, 50, 50, 0x00FF00FF);
+		switch (type) {
+		case SQUARE:
+			s.createSquare();
+			break;
+		case TRIANGLE:
+			s.createTriangle();
+			break;
+		case ELLIPSE:
+			s.createEllipse();
+			break;
+		}
 		shapes.add(s);
 	}
 
-	public void createSquare() {
-
+	public void addShape(ShapeType type, int beginX, int beginY, int endX, int endY, int color) {
+		Shape s = new Shape(pApplet);
+		switch (type) {
+		case SQUARE:
+			s.createSquare(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
+			break;
+		case TRIANGLE:
+			s.createTriangle();
+			break;
+		case ELLIPSE:
+			s.createEllipse();
+			break;
+		}
+		shapes.add(s);
 	}
 
-	void createSquare(int x, int y, int h, int w, int color) {
-		Shape s = new Shape(pApplet);
-		s.createSquare();
-		shapes.add(s);
+	public void draw() {
+		for (Shape shape : shapes) {
+			shape.draw();
+		}
 	}
 }

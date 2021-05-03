@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.event.MouseEvent;
 
 public class Application extends PApplet {
 
@@ -31,11 +32,27 @@ public class Application extends PApplet {
 		mainApp.add();
 	}
 
+	public void remove() {
+		mainApp.remove();
+	}
+
 	public void addLayer() {
 		mainApp.addLayer();
 	}
-	
+
 	public void removeLayer() {
 		mainApp.removeLayer();
+	}
+
+	public void mousePressed(MouseEvent event) {
+		if (event.getButton() == RIGHT) {
+			mainApp.beginShape();
+		}
+	}
+
+	public void mouseReleased(MouseEvent event) {
+		if (event.getButton() == RIGHT) {
+			mainApp.endShape();
+		}
 	}
 }
