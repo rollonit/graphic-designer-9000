@@ -18,12 +18,6 @@ public class Shape {
 	private boolean isSelected;
 	private ShapeType type;
 
-	public Shape(int mouseX, int mouseY, boolean draw, int stroke, int color) {
-
-		this.stroke = color;
-
-	}
-
 	public Shape(PApplet pApplet) {
 		this.pApplet = pApplet;
 	}
@@ -31,19 +25,7 @@ public class Shape {
 	void setup() {
 
 	}
-
-	public void createSquare() {
-		this.shape = pApplet.createShape();
-		this.shape.beginShape();
-		this.shape.fill(0, 0, 255);
-		this.shape.setStroke(stroke);
-		this.shape.vertex(0, 0);
-		this.shape.vertex(0, 50);
-		this.shape.vertex(50, 50);
-		this.shape.vertex(50, 0);
-		this.shape.endShape(PShape.CLOSE);
-	}
-
+	
 	public void createSquare(int x, int y, int w, int h, int color) {
 		this.x = x;
 		this.y = y;
@@ -63,20 +45,6 @@ public class Shape {
 		this.shape.setStroke(stroke);
 	}
 
-	public void createTriangle() {
-		this.shape = pApplet.createShape();
-		this.shape.beginShape(PShape.TRIANGLE_STRIP);
-		this.shape.setStroke(stroke);
-		this.shape.vertex(30, 75);
-		this.shape.vertex(40, 20);
-		this.shape.vertex(50, 75);
-		this.shape.vertex(60, 20);
-		this.shape.vertex(70, 75);
-		this.shape.vertex(80, 20);
-		this.shape.vertex(90, 75);
-		this.shape.endShape();
-	}
-
 	public void createTriangle(int x, int y, int w, int h, int color) {
 		this.x = x;
 		this.y = y;
@@ -93,18 +61,6 @@ public class Shape {
 		this.shape.vertex(x + w, y + h);
 		this.shape.endShape(PShape.CLOSE);
 		this.shape.setStroke(stroke);
-	}
-
-	public void createEllipse() {
-		this.shape = pApplet.createShape();
-		this.shape.beginShape(PShape.ELLIPSE);
-		this.shape.setStroke(stroke);
-		this.shape.fill(0, 0, 255);
-		this.shape.noStroke();
-		this.shape.vertex(0, 0);
-		this.shape.vertex(0, 50);
-		this.shape.vertex(50, 50);
-		this.shape.vertex(50, 0);
 	}
 
 	public void createEllipse(int x, int y, int w, int h, int color) {

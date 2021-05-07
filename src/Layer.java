@@ -18,22 +18,6 @@ public class Layer {
 		layerDDList.addItem("Layer " + layerIndex, "Layer " + layerIndex);
 	}
 
-	public void addShape(ShapeType type) {
-		Shape s = new Shape(pApplet);
-		switch (type) {
-		case SQUARE:
-			s.createSquare();
-			break;
-		case TRIANGLE:
-			s.createTriangle();
-			break;
-		case ELLIPSE:
-			s.createEllipse();
-			break;
-		}
-		shapes.add(s);
-	}
-
 	public void addShape(ShapeType type, int beginX, int beginY, int endX, int endY, int color) {
 		Shape s = new Shape(pApplet);
 		switch (type) {

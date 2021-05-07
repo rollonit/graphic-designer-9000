@@ -28,10 +28,6 @@ public class Application extends PApplet {
 		mainApp.save();
 	}
 
-	public void add() {
-		mainApp.add();
-	}
-
 	public void remove() {
 		mainApp.remove();
 	}

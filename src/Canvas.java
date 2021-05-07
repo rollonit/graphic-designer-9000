@@ -193,11 +193,6 @@ public class Canvas {
 		System.out.println("Remove Button Triggered!");
 	}
 
-	public void add() {
-		System.out.println("Add Button Triggered");
-		layers.get(this.getCurrentLayerIndex()).addShape(this.getCurrentShapeType());
-	}
-
 	public void add(int beginX, int beginY, int endX, int endY) {
 		if (this.isInCanvas(beginX, beginY)) {
 			if (this.isInCanvas(endX, endY)) {
