@@ -6,7 +6,6 @@ public class Application extends PApplet {
 	Canvas mainApp;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		PApplet.main("Application");
 	}
 
@@ -43,8 +42,7 @@ public class Application extends PApplet {
 	public void mousePressed(MouseEvent event) {
 		if (event.getButton() == RIGHT) {
 			mainApp.beginShape();
-		}
-		else if (event.getButton() == LEFT) {
+		} else if (event.getButton() == LEFT) {
 			mainApp.select();
 		}
 	}

@@ -55,9 +55,25 @@ public class Layer {
 		}
 	}
 
+	public void save(int x, int y, int color) {
+		this.selectedShape().setX(x);
+		this.selectedShape().setY(y);
+		this.selectedShape().setColor(color);
+		this.selectedShape().update();
+	}
+
 	public void deselectAll() {
 		for (Shape shape : shapes) {
 			shape.deselect();
 		}
+	}
+
+	public Shape selectedShape() {
+		for (Shape shape : shapes) {
+			if(shape.isSelected()){
+				return shape;
+			}
+		}
+		return null;
 	}
 }

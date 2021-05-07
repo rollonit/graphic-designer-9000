@@ -55,7 +55,7 @@ public class Canvas {
 		UIheadFont = pApplet.createFont("Arial", 18);
 		UIobjPropsLevel = 100;
 		UIobjButtonLevel = 350;
-		
+
 		this.creatingShape = false;
 	}
 
@@ -165,6 +165,8 @@ public class Canvas {
 
 	}
 
+	//BUTTON COMMANDS
+
 	public void draw() {
 		pApplet.background(25);
 
@@ -186,6 +188,8 @@ public class Canvas {
 
 	public void save() {
 		System.out.println("Save Button Triggered!");
+		this.getCurrentLayer().save(Integer.parseInt(this.objX.getText()), Integer.parseInt(this.objY.getText()),
+				this.objColorPicker.getColorValue());
 
 	}
 
@@ -196,7 +200,7 @@ public class Canvas {
 	public void add(int beginX, int beginY, int endX, int endY) {
 		if (this.isInCanvas(beginX, beginY)) {
 			if (this.isInCanvas(endX, endY)) {
-				layers.get(this.getCurrentLayerIndex()).addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY,
+				this.getCurrentLayer().addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY,
 						objColorPicker.getColorValue());
 			}
 		}
@@ -212,12 +216,16 @@ public class Canvas {
 		layerIndex--;
 	}
 
-	public int getCurrentLayerIndex() {
+	private int getCurrentLayerIndex() {
 		String curSel = ((HashMap<String, Object>) (layerList.getItem((int) (layerList.getValue())))).get("value")
 				.toString();
 		int index = Integer.parseInt(String.valueOf(curSel.charAt(curSel.length() - 1)));
-		System.out.println("String: " + curSel + "\nIndex:" + index);
+		//System.out.println("String: " + curSel + "\nIndex:" + index);
 		return index;
+	}
+
+	private Layer getCurrentLayer() {
+		return layers.get(this.getCurrentLayerIndex());
 	}
 
 	private String getCurrentShape() {
@@ -253,15 +261,20 @@ public class Canvas {
 	}
 
 	public void select() {
-		layers.get(this.getCurrentLayerIndex()).select();
+		if (this.isInCanvas(pApplet.mouseX, pApplet.mouseY)) {
+			layers.get(this.getCurrentLayerIndex()).select();
+			if (this.getCurrentLayer().selectedShape() != null) {
+				this.objX.setText(String.valueOf(this.getCurrentLayer().selectedShape().getX()));
+				this.objY.setText(String.valueOf(this.getCurrentLayer().selectedShape().getY()));
+				this.objColorPicker.setColorValue(this.getCurrentLayer().selectedShape().getColor());
+			} else {
+				this.objX.setText("");
+				this.objY.setText("");
+			}
+		}
 	}
 
 	private boolean isInCanvas(int x, int y) {
-		if (x >= CANVASX && x <= (CANVASX + CANVASW)) {
-			if (y >= CANVASY && y <= (CANVASY + CANVASH))
-				return true;
-		}
-		return false;
+		return (x >= CANVASX && x <= (CANVASX + CANVASW)) && (y >= CANVASY && y <= (CANVASY + CANVASH));
 	}
-
 }

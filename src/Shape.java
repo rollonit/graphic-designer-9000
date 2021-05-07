@@ -23,9 +23,8 @@ public class Shape {
 	}
 
 	void setup() {
-
 	}
-	
+
 	public void createSquare(int x, int y, int w, int h, int color) {
 		this.x = x;
 		this.y = y;
@@ -34,6 +33,18 @@ public class Shape {
 		this.color = color;
 		type = ShapeType.SQUARE;
 
+		this.shape = pApplet.createShape();
+		this.shape.beginShape();
+		this.shape.fill(color);
+		this.shape.vertex(x, y);
+		this.shape.vertex(x, y + h);
+		this.shape.vertex(x + w, y + h);
+		this.shape.vertex(x + w, y);
+		this.shape.endShape(PShape.CLOSE);
+		this.shape.setStroke(stroke);
+	}
+
+	private void updateSquare() {
 		this.shape = pApplet.createShape();
 		this.shape.beginShape();
 		this.shape.fill(color);
@@ -63,6 +74,17 @@ public class Shape {
 		this.shape.setStroke(stroke);
 	}
 
+	private void updateTriangle() {
+		this.shape = pApplet.createShape();
+		this.shape.beginShape();
+		this.shape.fill(color);
+		this.shape.vertex(x + (w / 2), y);
+		this.shape.vertex(x, y + h);
+		this.shape.vertex(x + w, y + h);
+		this.shape.endShape(PShape.CLOSE);
+		this.shape.setStroke(stroke);
+	}
+
 	public void createEllipse(int x, int y, int w, int h, int color) {
 		this.x = x;
 		this.y = y;
@@ -71,6 +93,13 @@ public class Shape {
 		this.color = color;
 		type = ShapeType.ELLIPSE;
 
+		pApplet.ellipseMode(PApplet.CORNER);
+		this.shape = pApplet.createShape(PShape.ELLIPSE, x, y, w, h);
+		this.shape.setFill(color);
+		this.shape.setStroke(stroke);
+	}
+
+	private void updateEllipse() {
 		pApplet.ellipseMode(PApplet.CORNER);
 		this.shape = pApplet.createShape(PShape.ELLIPSE, x, y, w, h);
 		this.shape.setFill(color);
@@ -109,6 +138,10 @@ public class Shape {
 		this.shape.setStroke(stroke - 1);
 		pApplet.cursor(PApplet.ARROW);
 		System.out.println("Shape Deselected");
+	}
+
+	public boolean isSelected() {
+		return this.isSelected;
 	}
 
 	public boolean isInShape() {
@@ -160,5 +193,67 @@ public class Shape {
 	private boolean isInSquare() {
 		return (pApplet.mouseX >= this.x && pApplet.mouseX <= (this.x + this.w))
 				&& (pApplet.mouseY >= this.y && pApplet.mouseY <= (this.y + this.h));
+	}
+
+	public void update() {
+		switch (this.type) {
+		case SQUARE:
+			this.updateSquare();
+			break;
+		case TRIANGLE:
+			this.updateTriangle();
+			break;
+		case ELLIPSE:
+			this.updateEllipse();
+			break;
+		}
+	}
+
+	public int getX() {
+		return this.x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return this.y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getH() {
+		return this.h;
+	}
+
+	public void setH(int h) {
+		this.h = h;
+	}
+
+	public int getW() {
+		return this.w;
+	}
+
+	public void setW(int w) {
+		this.w = w;
+	}
+
+	public int getColor() {
+		return this.color;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public int getStroke() {
+		return this.stroke;
+	}
+
+	public void setStroke(int stroke) {
+		this.stroke = stroke;
 	}
 }
