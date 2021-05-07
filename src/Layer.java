@@ -4,7 +4,7 @@ import controlP5.DropdownList;
 import processing.core.PApplet;
 
 public class Layer {
-	ArrayList<Shape> shapes;
+	private ArrayList<Shape> shapes;
 	int layerIndex;
 	DropdownList layerDDList;
 
@@ -41,10 +41,10 @@ public class Layer {
 			s.createSquare(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
 			break;
 		case TRIANGLE:
-			s.createTriangle();
+			s.createTriangle(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
 			break;
 		case ELLIPSE:
-			s.createEllipse();
+			s.createEllipse(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
 			break;
 		}
 		shapes.add(s);
@@ -53,6 +53,27 @@ public class Layer {
 	public void draw() {
 		for (Shape shape : shapes) {
 			shape.draw();
+		}
+	}
+
+	public void select() {
+		boolean somethingSelected = false;
+		for (int i = shapes.size() - 1; i >= 0; i--) {
+			if (shapes.get(i).isInShape()) {
+				this.deselectAll();
+				shapes.get(i).select();
+				somethingSelected = true;
+				break;
+			}
+		}
+		if (!somethingSelected) {
+			this.deselectAll();
+		}
+	}
+
+	public void deselectAll() {
+		for (Shape shape : shapes) {
+			shape.deselect();
 		}
 	}
 }

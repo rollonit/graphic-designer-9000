@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import controlP5.ColorPicker;
 import controlP5.ControlP5;
 import controlP5.DropdownList;
@@ -11,9 +12,14 @@ import processing.core.PFont;
 
 public class Canvas {
 
+	private int CANVASX;
+	private int CANVASY;
+	private int CANVASW;
+	private int CANVASH;
+
 	PApplet pApplet;
 
-	ArrayList<Layer> layers;
+	private ArrayList<Layer> layers;
 	int layerIndex;
 
 	private int shapeX, shapeY;
@@ -31,8 +37,13 @@ public class Canvas {
 	PFont UIinputFont, UIheadFont;
 	int UIobjPropsLevel, UIobjButtonLevel;
 
-	public Canvas(PApplet pApplet) {
+	public Canvas(PApplet pApplet, int x, int y, int h, int w) {
 		this.pApplet = pApplet;
+
+		this.CANVASX = x;
+		this.CANVASY = y;
+		this.CANVASW = w;
+		this.CANVASH = h;
 
 		this.layers = new ArrayList<>();
 		this.layerIndex = 0;
@@ -44,6 +55,7 @@ public class Canvas {
 		UIheadFont = pApplet.createFont("Arial", 18);
 		UIobjPropsLevel = 100;
 		UIobjButtonLevel = 350;
+		
 		this.creatingShape = false;
 	}
 
@@ -98,7 +110,7 @@ public class Canvas {
 						.setItemHeight(30);
 		objType.addItem("Square", "Square");
 		objType.addItem("Triangle", "Triangle");
-		objType.addItem("Eclipse", "Eclipse");
+		objType.addItem("Ellipse", "Ellipse");
 		
 		// Object Buttons
 		cp5.addButton("save")
@@ -146,7 +158,7 @@ public class Canvas {
 			.setPosition(1145, UIobjButtonLevel)
 			.setSize(120, 30)
 			.setColorValue(UIcolor);
-		
+
 		/////// END UI STUFF ////////
 
 		this.addLayer();
@@ -158,7 +170,7 @@ public class Canvas {
 
 		// placeholder for art board
 		pApplet.fill(backColorPicker.getColorValue());
-		pApplet.rect(280, 5, 720, 710);
+		pApplet.rect(this.CANVASX, this.CANVASY, this.CANVASW, this.CANVASH);
 
 		cp5.draw();
 
@@ -167,7 +179,7 @@ public class Canvas {
 		}
 
 		if (creatingShape) {
-			Shape.draw(pApplet, shapeX, shapeY, -(shapeX - pApplet.mouseX), -(shapeY - pApplet.mouseY),
+			Shape.draw(pApplet, shapeX, shapeY, -(shapeY - pApplet.mouseY), -(shapeX - pApplet.mouseX),
 					this.objColorPicker.getColorValue(), this.getCurrentShapeType());
 		}
 	}
@@ -187,8 +199,12 @@ public class Canvas {
 	}
 
 	public void add(int beginX, int beginY, int endX, int endY) {
-		layers.get(this.getCurrentLayerIndex()).addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY,
-				objColorPicker.getColorValue());
+		if (this.isInCanvas(beginX, beginY)) {
+			if (this.isInCanvas(endX, endY)) {
+				layers.get(this.getCurrentLayerIndex()).addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY,
+						objColorPicker.getColorValue());
+			}
+		}
 	}
 
 	public void addLayer() {
@@ -202,14 +218,15 @@ public class Canvas {
 	}
 
 	public int getCurrentLayerIndex() {
-		String curSel = ((HashMap) (layerList.getItem((int) (layerList.getValue())))).get("value").toString();
+		String curSel = ((HashMap<String, Object>) (layerList.getItem((int) (layerList.getValue())))).get("value")
+				.toString();
 		int index = Integer.parseInt(String.valueOf(curSel.charAt(curSel.length() - 1)));
 		System.out.println("String: " + curSel + "\nIndex:" + index);
 		return index;
 	}
 
 	private String getCurrentShape() {
-		return ((HashMap) (objType.getItem((int) (objType.getValue())))).get("value").toString();
+		return ((HashMap<String, Object>) (objType.getItem((int) (objType.getValue())))).get("value").toString();
 	}
 
 	public ShapeType getCurrentShapeType() {
@@ -225,7 +242,9 @@ public class Canvas {
 	public void beginShape() {
 		shapeX = pApplet.mouseX;
 		shapeY = pApplet.mouseY;
-		this.creatingShape = true;
+		if (this.isInCanvas(shapeX, shapeY)) {
+			this.creatingShape = true;
+		}
 	}
 
 	public void endShape() {
@@ -236,6 +255,18 @@ public class Canvas {
 				"Drag action performed!\nBEGIN X:" + shapeX + " Y:" + shapeY + "\nEND X:" + finalX + " Y:" + finalY);
 		this.add(shapeX, shapeY, finalX, finalY);
 		this.creatingShape = false;
+	}
+
+	public void select() {
+		layers.get(this.getCurrentLayerIndex()).select();
+	}
+
+	private boolean isInCanvas(int x, int y) {
+		if (x >= CANVASX && x <= (CANVASX + CANVASW)) {
+			if (y >= CANVASY && y <= (CANVASY + CANVASH))
+				return true;
+		}
+		return false;
 	}
 
 }

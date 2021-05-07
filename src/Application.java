@@ -15,7 +15,7 @@ public class Application extends PApplet {
 	}
 
 	public void setup() {
-		mainApp = new Canvas(this);
+		mainApp = new Canvas(this, 280, 5, 710, 720);
 		mainApp.init();
 	}
 
@@ -47,6 +47,9 @@ public class Application extends PApplet {
 	public void mousePressed(MouseEvent event) {
 		if (event.getButton() == RIGHT) {
 			mainApp.beginShape();
+		}
+		else if (event.getButton() == LEFT) {
+			mainApp.select();
 		}
 	}
 
