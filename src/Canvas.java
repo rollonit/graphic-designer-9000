@@ -1,14 +1,6 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import controlP5.ColorPicker;
-import controlP5.ControlP5;
-import controlP5.DropdownList;
-import controlP5.Textfield;
-import controlP5.Textlabel;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 
 public class Canvas {
 
@@ -26,16 +18,7 @@ public class Canvas {
 	private boolean creatingShape;
 
 	///// UI Stuff//////
-	ControlP5 cp5;
-	Textlabel objProps, backProps, layerHead;
-	Textfield objectName;
-	Textfield objX, objY, objRot;
-	ColorPicker objColorPicker, backColorPicker;
-	DropdownList objType, layerList;
-
-	int UIcolor;
-	PFont UIinputFont, UIheadFont;
-	int UIobjPropsLevel, UIobjButtonLevel;
+	UI ui;
 
 	public Canvas(PApplet pApplet, int x, int y, int h, int w) {
 		this.pApplet = pApplet;
@@ -49,12 +32,8 @@ public class Canvas {
 		this.layerIndex = 0;
 
 		//// UI Stuff////
-		cp5 = new ControlP5(this.pApplet);
-		UIcolor = 0xFFFFFFFF;
-		UIinputFont = pApplet.createFont("Arial", 15);
-		UIheadFont = pApplet.createFont("Arial", 18);
-		UIobjPropsLevel = 100;
-		UIobjButtonLevel = 350;
+		ui = new UI(this.pApplet);
+		
 
 		this.creatingShape = false;
 	}
@@ -62,103 +41,7 @@ public class Canvas {
 	public void init() {
 
 		/////// UI STUFFF ///////
-		pApplet.background(25);
-		
-		objProps = cp5.addLabel("objProbs")
-						.setPosition(15, 15)
-						.setText("Object Properties")
-						.setSize(250, 30)
-						.setFont(UIheadFont)
-						.setColor(UIcolor);
-		
-		objectName =  cp5.addTextfield("objectName")
-							.setPosition(15, 50)
-							.setSize(250, 30)
-							.setFont(UIinputFont)
-							.setFocus(true)
-							.setColor(UIcolor);
-		
-		// Object properties boxes		
-		objX = cp5.addTextfield("X")
-					.setPosition(15, UIobjPropsLevel)
-					.setSize(80, 30)
-					.setFont(UIinputFont)
-					.setColor(UIcolor);
-		
-		objY = cp5.addTextfield("Y")
-					.setPosition(100, UIobjPropsLevel)
-					.setSize(80, 30)
-					.setFont(UIinputFont)
-					.setColor(UIcolor);
-		
-		objRot = cp5.addTextfield("ROT")
-					.setPosition(185, UIobjPropsLevel)
-					.setSize(80, 30)
-					.setFont(UIinputFont)
-					.setColor(UIcolor);
-		
-		//Object color picker
-		objColorPicker = cp5.addColorPicker("OBJ Color")
-							.setPosition(15, 150)
-							.setSize(250, 550);
-		
-		//object type DDList
-		objType = cp5.addDropdownList("ObjectType")
-						.setPosition(15, 220)
-						.setSize(250, 120)
-						.setBarHeight(25)
-						.setItemHeight(30);
-		objType.addItem("Square", "Square");
-		objType.addItem("Triangle", "Triangle");
-		objType.addItem("Ellipse", "Ellipse");
-		
-		// Object Buttons
-		cp5.addButton("save")
-			.setPosition(15, UIobjButtonLevel)
-			.setSize(120, 30)
-			.setColorValue(UIcolor);
-		
-		cp5.addButton("remove")
-			.setPosition(145, UIobjButtonLevel)
-			.setSize(120, 30)
-			.setColorValue(UIcolor);
-		
-		// Background properties
-		backProps = cp5.addLabel("backProbs")
-				.setPosition(15, 600)
-				.setText("Background Properties")
-				.setSize(250, 30)
-				.setFont(UIheadFont)
-				.setColor(UIcolor);
-
-		//Background color selector
-		backColorPicker = cp5.addColorPicker("Background Color")
-							.setPosition(15, 635)
-							.setSize(250, 550);
-		
-		layerHead = backProps = cp5.addLabel("layerHead")
-				.setPosition(1015, 15)
-				.setText("Layers")
-				.setSize(250, 30)
-				.setFont(UIheadFont)
-				.setColor(UIcolor);
-		
-		layerList = cp5.addDropdownList("layerList")
-				.setPosition(1015, 50)
-				.setSize(250, 120)
-				.setBarHeight(50)
-				.setItemHeight(50);
-		
-		cp5.addButton("addLayer")
-			.setPosition(1015, UIobjButtonLevel)
-			.setSize(120, 30)
-			.setColorValue(UIcolor);
-	
-		cp5.addButton("removeLayer")
-			.setPosition(1145, UIobjButtonLevel)
-			.setSize(120, 30)
-			.setColorValue(UIcolor);
-
+		ui.init();
 		/////// END UI STUFF ////////
 
 		this.addLayer();
@@ -171,10 +54,10 @@ public class Canvas {
 		pApplet.background(25);
 
 		// placeholder for art board
-		pApplet.fill(backColorPicker.getColorValue());
+		pApplet.fill(ui.getBackgroundColorValue());
 		pApplet.rect(this.CANVASX, this.CANVASY, this.CANVASW, this.CANVASH);
 
-		cp5.draw();
+		ui.draw();
 
 		for (Layer layer : layers) {
 			layer.draw();
@@ -182,14 +65,13 @@ public class Canvas {
 
 		if (creatingShape) {
 			Shape.draw(pApplet, shapeX, shapeY, -(shapeY - pApplet.mouseY), -(shapeX - pApplet.mouseX),
-					this.objColorPicker.getColorValue(), this.getCurrentShapeType());
+					ui.getObjectColor(), this.getCurrentShapeType());
 		}
 	}
 
 	public void save() {
 		System.out.println("Save Button Triggered!");
-		this.getCurrentLayer().save(Integer.parseInt(this.objX.getText()), Integer.parseInt(this.objY.getText()),
-				this.objColorPicker.getColorValue());
+		this.getCurrentLayer().save(ui.getObjectX(), ui.getObjectY(), ui.getObjectColor());
 
 	}
 
@@ -200,40 +82,27 @@ public class Canvas {
 	public void add(int beginX, int beginY, int endX, int endY) {
 		if (this.isInCanvas(beginX, beginY)) {
 			if (this.isInCanvas(endX, endY)) {
-				this.getCurrentLayer().addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY,
-						objColorPicker.getColorValue());
+				this.getCurrentLayer().addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY, ui.getObjectColor());
 			}
 		}
 	}
 
 	public void addLayer() {
-		layers.add(new Layer(pApplet, layerList, layerIndex));
+		layers.add(new Layer(pApplet, ui.getLayerList(), layerIndex));
 		layerIndex++;
 	}
 
 	public void removeLayer() {
-		layers.remove(this.getCurrentLayerIndex());
+		layers.remove(ui.getCurrentLayerIndex());
 		layerIndex--;
 	}
 
-	private int getCurrentLayerIndex() {
-		String curSel = ((HashMap<String, Object>) (layerList.getItem((int) (layerList.getValue())))).get("value")
-				.toString();
-		int index = Integer.parseInt(String.valueOf(curSel.charAt(curSel.length() - 1)));
-		//System.out.println("String: " + curSel + "\nIndex:" + index);
-		return index;
-	}
-
 	private Layer getCurrentLayer() {
-		return layers.get(this.getCurrentLayerIndex());
-	}
-
-	private String getCurrentShape() {
-		return ((HashMap<String, Object>) (objType.getItem((int) (objType.getValue())))).get("value").toString();
+		return layers.get(ui.getCurrentLayerIndex());
 	}
 
 	public ShapeType getCurrentShapeType() {
-		String s = getCurrentShape();
+		String s = ui.getCurrentShape();
 		if (s.equals("Square"))
 			return ShapeType.SQUARE;
 		else if (s.equals("Triangle"))
@@ -262,14 +131,14 @@ public class Canvas {
 
 	public void select() {
 		if (this.isInCanvas(pApplet.mouseX, pApplet.mouseY)) {
-			layers.get(this.getCurrentLayerIndex()).select();
+			this.getCurrentLayer().select();
 			if (this.getCurrentLayer().selectedShape() != null) {
-				this.objX.setText(String.valueOf(this.getCurrentLayer().selectedShape().getX()));
-				this.objY.setText(String.valueOf(this.getCurrentLayer().selectedShape().getY()));
-				this.objColorPicker.setColorValue(this.getCurrentLayer().selectedShape().getColor());
+				ui.setObjectX(this.getCurrentLayer().selectedShape().getX());
+				ui.setObjectY(this.getCurrentLayer().selectedShape().getY());
+				ui.setObjectColor(this.getCurrentLayer().selectedShape().getColor());
 			} else {
-				this.objX.setText("");
-				this.objY.setText("");
+				ui.setObjectX("");
+				ui.setObjectY("");
 			}
 		}
 	}

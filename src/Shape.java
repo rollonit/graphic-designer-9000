@@ -5,16 +5,16 @@ import processing.core.PShape;
 
 public class Shape {
 
-	PShape shape;
-	PApplet pApplet;
+	private PShape shape;
+	private PApplet pApplet;
 
-	int x;
-	int y;
-	int h;
-	int w;
+	private int x;
+	private int y;
+	private int h;
+	private int w;
 
-	int color;
-	int stroke;
+	private int color;
+	private int stroke;
 	private boolean isSelected;
 	private ShapeType type;
 

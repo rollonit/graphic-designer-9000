@@ -31,7 +31,7 @@ public class Layer {
 			s.createEllipse(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
 			break;
 		}
-		shapes.add(s);
+		this.shapes.add(s);
 	}
 
 	public void draw() {
