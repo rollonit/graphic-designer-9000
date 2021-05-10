@@ -92,6 +92,16 @@ public class Canvas {
 		layers.remove(ui.getCurrentLayerIndex());
 	}
 
+	public void moveLayer(int layerToMove, int whereToMove) {
+		if (layerToMove > whereToMove) {
+			layers.add(whereToMove, layers.get(layerToMove));
+			layers.remove(layerToMove + 1);
+		} else if (layerToMove < whereToMove) {
+			layers.add(whereToMove, layers.get(layerToMove));
+			layers.remove(layerToMove);
+		}
+	}
+
 	private Layer getCurrentLayer() {
 		return layers.get(ui.getCurrentLayerIndex());
 	}
