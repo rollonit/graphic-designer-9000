@@ -29,21 +29,42 @@ public class Shape {
 	void setup() {
 	}
 
+	private static int[] translate(int x, int y, int w, int h) {
+		if (h >= 0 && w >= 0) {
+			int[] out = { x, y, w, h };
+			return out;
+		} else if (h >= 0 && w < 0) {
+			int[] out = { x + w, y, x, -h };
+			return out;
+		} else if (h < 0 && w >= 0) {
+			int[] out = { x, y + h, -w, y };
+			return out;
+		} else {
+			int[] out = { x + w, y + h, -w, -h };
+			return out;
+		}
+	}
+
+	private void assignCoords(int[] coords) {
+		this.x = coords[0];
+		this.y = coords[1];
+		this.w = coords[2];
+		this.h = coords[3];
+		System.out.println(coords[0] + ", " + coords[1] + ", " + coords[2] + ", " + coords[3] + ".");
+	}
+
 	public void createSquare(int x, int y, int w, int h, int color) {
-		this.x = x;
-		this.y = y;
-		this.h = h;
-		this.w = w;
+		this.assignCoords(Shape.translate(x, y, w, h));
 		this.color = color;
 		type = ShapeType.SQUARE;
 
 		this.shape = pApplet.createShape();
 		this.shape.beginShape();
 		this.shape.fill(color);
-		this.shape.vertex(x, y);
-		this.shape.vertex(x, y + h);
-		this.shape.vertex(x + w, y + h);
-		this.shape.vertex(x + w, y);
+		this.shape.vertex(this.x, this.y);
+		this.shape.vertex(this.x, this.y + this.h);
+		this.shape.vertex(this.x + this.w, this.y + this.h);
+		this.shape.vertex(this.x + this.w, this.y);
 		this.shape.endShape(PShape.CLOSE);
 		this.shape.setStroke(stroke);
 	}
@@ -52,28 +73,25 @@ public class Shape {
 		this.shape = pApplet.createShape();
 		this.shape.beginShape();
 		this.shape.fill(color);
-		this.shape.vertex(x, y);
-		this.shape.vertex(x, y + h);
-		this.shape.vertex(x + w, y + h);
-		this.shape.vertex(x + w, y);
+		this.shape.vertex(this.x, this.y);
+		this.shape.vertex(this.x, this.y + this.h);
+		this.shape.vertex(this.x + this.w, this.y + this.h);
+		this.shape.vertex(this.x + this.w, this.y);
 		this.shape.endShape(PShape.CLOSE);
 		this.shape.setStroke(stroke);
 	}
 
 	public void createTriangle(int x, int y, int w, int h, int color) {
-		this.x = x;
-		this.y = y;
-		this.h = h;
-		this.w = w;
+		this.assignCoords(Shape.translate(x, y, w, h));
 		this.color = color;
 		type = ShapeType.TRIANGLE;
 
 		this.shape = pApplet.createShape();
 		this.shape.beginShape();
 		this.shape.fill(color);
-		this.shape.vertex(x + (w / 2), y);
-		this.shape.vertex(x, y + h);
-		this.shape.vertex(x + w, y + h);
+		this.shape.vertex(this.x + (this.w / 2), this.y);
+		this.shape.vertex(this.x, this.y + this.h);
+		this.shape.vertex(this.x + this.w, this.y + this.h);
 		this.shape.endShape(PShape.CLOSE);
 		this.shape.setStroke(stroke);
 	}
@@ -82,30 +100,27 @@ public class Shape {
 		this.shape = pApplet.createShape();
 		this.shape.beginShape();
 		this.shape.fill(color);
-		this.shape.vertex(x + (w / 2), y);
-		this.shape.vertex(x, y + h);
-		this.shape.vertex(x + w, y + h);
+		this.shape.vertex(this.x + (this.w / 2), this.y);
+		this.shape.vertex(this.x, this.y + this.h);
+		this.shape.vertex(this.x + this.w, this.y + this.h);
 		this.shape.endShape(PShape.CLOSE);
 		this.shape.setStroke(stroke);
 	}
 
 	public void createEllipse(int x, int y, int w, int h, int color) {
-		this.x = x;
-		this.y = y;
-		this.h = h;
-		this.w = w;
+		this.assignCoords(Shape.translate(x, y, w, h));
 		this.color = color;
 		type = ShapeType.ELLIPSE;
 
 		pApplet.ellipseMode(PApplet.CORNER);
-		this.shape = pApplet.createShape(PShape.ELLIPSE, x, y, w, h);
+		this.shape = pApplet.createShape(PShape.ELLIPSE, this.x, this.y, this.w, this.h);
 		this.shape.setFill(color);
 		this.shape.setStroke(stroke);
 	}
 
 	private void updateEllipse() {
 		pApplet.ellipseMode(PApplet.CORNER);
-		this.shape = pApplet.createShape(PShape.ELLIPSE, x, y, w, h);
+		this.shape = pApplet.createShape(PShape.ELLIPSE, this.x, this.y, this.w, this.h);
 		this.shape.setFill(color);
 		this.shape.setStroke(stroke);
 	}
@@ -124,7 +139,8 @@ public class Shape {
 			p.rect(x, y, w, h);
 			break;
 		case TRIANGLE:
-			p.triangle(x + (w / 2), y, x, y + h, x + w, y + h);
+			int[] coords = Shape.translate(x, y, w, h);
+			p.triangle(coords[0] + (coords[2] / 2), coords[1], coords[0], coords[1] + coords[3], coords[0] + coords[2], coords[1] + coords[3]);
 			break;
 		case ELLIPSE:
 			p.ellipseMode(PApplet.CORNER);
@@ -152,12 +168,24 @@ public class Shape {
 	}
 
 	private void highlightVertices() {
-		for (int i = 0; i < this.shape.getVertexCount(); i++) {
-			PVector v = this.shape.getVertex(i);
-			// this.pApplet.noStroke();
+		switch (this.type) {
+		case SQUARE:
+		case TRIANGLE:
+			for (int i = 0; i < this.shape.getVertexCount(); i++) {
+				PVector v = this.shape.getVertex(i);
+				// this.pApplet.noStroke();
+				this.pApplet.fill(0xffff0000);
+				this.pApplet.ellipseMode(PApplet.CENTER);
+				this.pApplet.ellipse(v.x, v.y, 7, 7);
+			}
+			break;
+		case ELLIPSE:
 			this.pApplet.fill(0xffff0000);
 			this.pApplet.ellipseMode(PApplet.CENTER);
-			this.pApplet.ellipse(v.x, v.y, 7, 7);
+			this.pApplet.ellipse(this.x, this.y, 7, 7);
+			this.pApplet.ellipse(this.x, this.y + this.h, 7, 7);
+			this.pApplet.ellipse(this.x + this.w, this.y, 7, 7);
+			this.pApplet.ellipse(this.x + this.w, this.y + this.h, 7, 7);
 		}
 	}
 
