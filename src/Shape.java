@@ -140,7 +140,8 @@ public class Shape {
 			break;
 		case TRIANGLE:
 			int[] coords = Shape.translate(x, y, w, h);
-			p.triangle(coords[0] + (coords[2] / 2), coords[1], coords[0], coords[1] + coords[3], coords[0] + coords[2], coords[1] + coords[3]);
+			p.triangle(coords[0] + (coords[2] / 2), coords[1], coords[0], coords[1] + coords[3], coords[0] + coords[2],
+					coords[1] + coords[3]);
 			break;
 		case ELLIPSE:
 			p.ellipseMode(PApplet.CORNER);

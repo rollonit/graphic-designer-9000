@@ -1,21 +1,17 @@
 import java.util.ArrayList;
 
-import controlP5.DropdownList;
 import processing.core.PApplet;
 
 public class Layer {
 	private ArrayList<Shape> shapes;
-	int layerIndex;
-	DropdownList layerDDList;
 
 	PApplet pApplet;
+	private boolean isVisible;
 
-	public Layer(PApplet pApplet, DropdownList layerDDList, int layerIndex) {
+	public Layer(PApplet pApplet) {
 		shapes = new ArrayList<>();
-		this.layerDDList = layerDDList;
-		this.layerIndex = layerIndex;
 		this.pApplet = pApplet;
-		layerDDList.addItem("Layer " + layerIndex, "Layer " + layerIndex);
+		this.isVisible = true;
 	}
 
 	public void addShape(ShapeType type, int beginX, int beginY, int endX, int endY, int color) {
@@ -88,5 +84,13 @@ public class Layer {
 			}
 		}
 		return null;
+	}
+
+	public boolean isVisible() {
+		return this.isVisible;
+	}
+
+	public void toggleVisibility() {
+		this.isVisible = !this.isVisible;
 	}
 }

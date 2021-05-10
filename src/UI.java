@@ -17,7 +17,9 @@ public class UI {
 	Textfield objectName;
 	Textfield objX, objY, objRot;
 	ColorPicker objColorPicker, backColorPicker;
-	DropdownList objType, layerList;
+	DropdownList objType;
+
+	LayerList layerlist;
 
 	int UIcolor;
 	PFont UIinputFont, UIheadFont;
@@ -33,7 +35,7 @@ public class UI {
 		UIobjButtonLevel = 350;
 	}
 
-	public void init() {
+	public void init(Canvas canvas) {
 		pApplet.background(25);
 
 		objProps = cp5.addLabel("objProbs")
@@ -114,12 +116,9 @@ public class UI {
 				.setSize(250, 30)
 				.setFont(UIheadFont)
 				.setColor(UIcolor);
-		
-		layerList = cp5.addDropdownList("layerList")
-				.setPosition(1015, 50)
-				.setSize(250, 120)
-				.setBarHeight(50)
-				.setItemHeight(50);
+
+		layerlist = new LayerList(pApplet, 1015, 50, 250, 280);
+		layerlist.associateCanvas(canvas);
 		
 		cp5.addButton("addLayer")
 			.setPosition(1015, UIobjButtonLevel)
@@ -134,13 +133,22 @@ public class UI {
 
 	public void draw() {
 		cp5.draw();
+		layerlist.draw();
 	}
-	
+
+	public boolean isInLayerList(int x, int y) {
+		return layerlist.isInList(x, y);
+	}
+
+	public void layerClick() {
+		layerlist.click();
+	}
+
 	public String getObjectName() {
 		return this.objectName.getText();
 	}
-	
-	public void setObjectName (String textToSet) {
+
+	public void setObjectName(String textToSet) {
 		this.objectName.setText(textToSet);
 	}
 
@@ -180,16 +188,14 @@ public class UI {
 		return backColorPicker.getColorValue();
 	}
 
-	public DropdownList getLayerList() {
-		return this.layerList;
-	}
-
 	public int getCurrentLayerIndex() {
-		String curSel = ((HashMap<String, Object>) (layerList.getItem((int) (layerList.getValue())))).get("value")
-				.toString();
-		int index = Integer.parseInt(String.valueOf(curSel.charAt(curSel.length() - 1)));
-		// System.out.println("String: " + curSel + "\nIndex:" + index);
-		return index;
+		return this.layerlist.getCurrentLayerIndex();
+		/*
+		 * String curSel = ((HashMap<String, Object>) (layerList.getItem((int)
+		 * (layerList.getValue())))).get("value") .toString(); int index =
+		 * Integer.parseInt(String.valueOf(curSel.charAt(curSel.length() - 1))); //
+		 * System.out.println("String: " + curSel + "\nIndex:" + index); return index;
+		 */
 	}
 
 	private String getCurrentShape() {

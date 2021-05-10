@@ -12,7 +12,6 @@ public class Canvas {
 	PApplet pApplet;
 
 	private ArrayList<Layer> layers;
-	int layerIndex;
 
 	private int beginX, beginY;
 	private boolean creatingShape, draggingShape;
@@ -28,7 +27,6 @@ public class Canvas {
 		this.CANVASH = h;
 
 		this.layers = new ArrayList<>();
-		this.layerIndex = 0;
 
 		ui = new UI(this.pApplet);
 
@@ -37,7 +35,7 @@ public class Canvas {
 	}
 
 	public void init() {
-		ui.init();
+		ui.init(this);
 		this.addLayer();
 	}
 
@@ -51,7 +49,8 @@ public class Canvas {
 		ui.draw();
 
 		for (Layer layer : layers) {
-			layer.draw();
+			if (layer.isVisible())
+				layer.draw();
 		}
 
 		if (creatingShape) {
@@ -86,13 +85,11 @@ public class Canvas {
 	}
 
 	public void addLayer() {
-		layers.add(new Layer(pApplet, ui.getLayerList(), layerIndex));
-		layerIndex++;
+		layers.add(new Layer(pApplet));
 	}
 
 	public void removeLayer() {
 		layers.remove(ui.getCurrentLayerIndex());
-		layerIndex--;
 	}
 
 	private Layer getCurrentLayer() {
@@ -134,6 +131,9 @@ public class Canvas {
 						this.getCurrentLayer().selectedShape().getH(), this.getCurrentLayer().selectedShape().getW())) {
 			this.getCurrentLayer().moveBy(pApplet.mouseX - beginX, pApplet.mouseY - beginY);
 			this.updateFields();
+		} else if (this.ui.isInLayerList(pApplet.mouseX, pApplet.mouseY)) {
+			ui.layerClick();
+			System.out.println("Mouse was clicked in layerbox!");
 		} else {
 			this.select();
 		}
@@ -168,5 +168,9 @@ public class Canvas {
 
 	private boolean isInCanvas(int x, int y, int h, int w) {
 		return (this.isInCanvas(x, y) && this.isInCanvas(x + h, y + w));
+	}
+
+	public ArrayList<Layer> getLayers() {
+		return layers;
 	}
 }
