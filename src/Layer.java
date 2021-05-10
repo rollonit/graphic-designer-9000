@@ -55,10 +55,23 @@ public class Layer {
 		}
 	}
 
-	public void save(int x, int y, int color) {
+	public void save(int x, int y, int color, String name) {
 		this.selectedShape().setX(x);
 		this.selectedShape().setY(y);
 		this.selectedShape().setColor(color);
+		this.selectedShape().setName(name);
+		this.selectedShape().update();
+	}
+
+	public void remove() {
+		if (this.selectedShape() != null) {
+			shapes.remove(this.selectedShape());
+		}
+	}
+
+	public void moveBy(int x, int y) {
+		this.selectedShape().setX(this.selectedShape().getX() + x);
+		this.selectedShape().setY(this.selectedShape().getY() + y);
 		this.selectedShape().update();
 	}
 

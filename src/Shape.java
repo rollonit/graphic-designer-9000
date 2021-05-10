@@ -2,11 +2,14 @@
 //import processing.core.PApplet;
 import processing.core.PApplet;
 import processing.core.PShape;
+import processing.core.PVector;
 
 public class Shape {
 
 	private PShape shape;
 	private PApplet pApplet;
+
+	private String name;
 
 	private int x;
 	private int y;
@@ -20,6 +23,7 @@ public class Shape {
 
 	public Shape(PApplet pApplet) {
 		this.pApplet = pApplet;
+		this.name = "";
 	}
 
 	void setup() {
@@ -108,6 +112,9 @@ public class Shape {
 
 	public void draw() {
 		this.pApplet.shape(this.shape);
+
+		if (this.isSelected)
+			this.highlightVertices();
 	}
 
 	public static void draw(PApplet p, int x, int y, int h, int w, int color, ShapeType type) {
@@ -128,20 +135,30 @@ public class Shape {
 
 	public void select() {
 		this.isSelected = true;
-		this.shape.setStroke(stroke + 1);
+		// this.shape.setStroke(stroke + 1);
 		pApplet.cursor(PApplet.HAND);
 		System.out.println("Shape Selected!");
 	}
 
 	public void deselect() {
 		this.isSelected = false;
-		this.shape.setStroke(stroke - 1);
+		// this.shape.setStroke(stroke - 1);
 		pApplet.cursor(PApplet.ARROW);
 		System.out.println("Shape Deselected");
 	}
 
 	public boolean isSelected() {
 		return this.isSelected;
+	}
+
+	private void highlightVertices() {
+		for (int i = 0; i < this.shape.getVertexCount(); i++) {
+			PVector v = this.shape.getVertex(i);
+			// this.pApplet.noStroke();
+			this.pApplet.fill(0xffff0000);
+			this.pApplet.ellipseMode(PApplet.CENTER);
+			this.pApplet.ellipse(v.x, v.y, 7, 7);
+		}
 	}
 
 	public boolean isInShape() {
@@ -183,7 +200,7 @@ public class Shape {
 		double A2 = area(x1, y1, x, y, x3, y3);
 		double A3 = area(x1, y1, x2, y2, x, y);
 
-		return (A == A1 + A2 + A3);
+		return (Math.abs(A - (A1 + A2 + A3)) < 0.00001);
 	}
 
 	private double area(double x1, double y1, double x2, double y2, double x3, double y3) {
@@ -207,6 +224,14 @@ public class Shape {
 			this.updateEllipse();
 			break;
 		}
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String nameToSet) {
+		this.name = nameToSet;
 	}
 
 	public int getX() {

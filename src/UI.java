@@ -135,6 +135,14 @@ public class UI {
 	public void draw() {
 		cp5.draw();
 	}
+	
+	public String getObjectName() {
+		return this.objectName.getText();
+	}
+	
+	public void setObjectName (String textToSet) {
+		this.objectName.setText(textToSet);
+	}
 
 	public int getObjectX() {
 		return Integer.parseInt(this.objX.getText());
@@ -184,8 +192,17 @@ public class UI {
 		return index;
 	}
 
-	public String getCurrentShape() {
+	private String getCurrentShape() {
 		return ((HashMap<String, Object>) (objType.getItem((int) (objType.getValue())))).get("value").toString();
 	}
 
+	public ShapeType getCurrentShapeType() {
+		String s = this.getCurrentShape();
+		if (s.equals("Square"))
+			return ShapeType.SQUARE;
+		else if (s.equals("Triangle"))
+			return ShapeType.TRIANGLE;
+		else
+			return ShapeType.ELLIPSE;
+	}
 }

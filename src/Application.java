@@ -43,13 +43,15 @@ public class Application extends PApplet {
 		if (event.getButton() == RIGHT) {
 			mainApp.beginShape();
 		} else if (event.getButton() == LEFT) {
-			mainApp.select();
+			mainApp.beginDrag();
 		}
 	}
 
 	public void mouseReleased(MouseEvent event) {
 		if (event.getButton() == RIGHT) {
 			mainApp.endShape();
+		} else if (event.getButton() == LEFT) {
+			mainApp.endDrag();
 		}
 	}
 }
