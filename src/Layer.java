@@ -70,7 +70,7 @@ public class Layer {
 
 	public Shape selectedShape() {
 		for (Shape shape : shapes) {
-			if(shape.isSelected()){
+			if (shape.isSelected()) {
 				return shape;
 			}
 		}

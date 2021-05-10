@@ -17,7 +17,6 @@ public class Canvas {
 	private int shapeX, shapeY;
 	private boolean creatingShape;
 
-	///// UI Stuff//////
 	UI ui;
 
 	public Canvas(PApplet pApplet, int x, int y, int h, int w) {
@@ -31,24 +30,17 @@ public class Canvas {
 		this.layers = new ArrayList<>();
 		this.layerIndex = 0;
 
-		//// UI Stuff////
 		ui = new UI(this.pApplet);
-		
 
 		this.creatingShape = false;
 	}
 
 	public void init() {
-
-		/////// UI STUFFF ///////
 		ui.init();
-		/////// END UI STUFF ////////
-
 		this.addLayer();
-
 	}
 
-	//BUTTON COMMANDS
+	// BUTTON COMMANDS
 
 	public void draw() {
 		pApplet.background(25);
@@ -82,7 +74,8 @@ public class Canvas {
 	public void add(int beginX, int beginY, int endX, int endY) {
 		if (this.isInCanvas(beginX, beginY)) {
 			if (this.isInCanvas(endX, endY)) {
-				this.getCurrentLayer().addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY, ui.getObjectColor());
+				this.getCurrentLayer().addShape(this.getCurrentShapeType(), beginX, beginY, endX, endY,
+						ui.getObjectColor());
 			}
 		}
 	}

@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class UI {
 	PApplet pApplet;
 
-    ControlP5 cp5;
+	ControlP5 cp5;
 	Textlabel objProps, backProps, layerHead;
 	Textfield objectName;
 	Textfield objX, objY, objRot;
@@ -23,19 +23,19 @@ public class UI {
 	PFont UIinputFont, UIheadFont;
 	int UIobjPropsLevel, UIobjButtonLevel;
 
-    public UI(PApplet pApplet) {
-        this.pApplet = pApplet;
-        cp5 = new ControlP5(this.pApplet);
+	public UI(PApplet pApplet) {
+		this.pApplet = pApplet;
+		cp5 = new ControlP5(this.pApplet);
 		UIcolor = 0xFFFFFFFF;
 		UIinputFont = pApplet.createFont("Arial", 15);
 		UIheadFont = pApplet.createFont("Arial", 18);
 		UIobjPropsLevel = 100;
 		UIobjButtonLevel = 350;
-    }
+	}
 
-    public void init() {
-        pApplet.background(25);
-		
+	public void init() {
+		pApplet.background(25);
+
 		objProps = cp5.addLabel("objProbs")
 						.setPosition(15, 15)
 						.setText("Object Properties")
@@ -130,61 +130,61 @@ public class UI {
 			.setPosition(1145, UIobjButtonLevel)
 			.setSize(120, 30)
 			.setColorValue(UIcolor);
-    }
+	}
 
-    public void draw () {
-        cp5.draw();
-    }
+	public void draw() {
+		cp5.draw();
+	}
 
-    public int getObjectX () {
-        return Integer.parseInt(this.objX.getText());
-    }
+	public int getObjectX() {
+		return Integer.parseInt(this.objX.getText());
+	}
 
-    public void setObjectX(String textToSet) {
-        this.objX.setText(textToSet);
-    }
+	public void setObjectX(String textToSet) {
+		this.objX.setText(textToSet);
+	}
 
-    public void setObjectX (int valueToSet) {
-        this.objX.setText(String.valueOf(valueToSet));
-    }
+	public void setObjectX(int valueToSet) {
+		this.objX.setText(String.valueOf(valueToSet));
+	}
 
-    public int getObjectY() {
-        return Integer.parseInt(this.objY.getText());
-    }
-    
-    public void setObjectY(String textToSet) {
-        this.objY.setText(textToSet);
-    }
+	public int getObjectY() {
+		return Integer.parseInt(this.objY.getText());
+	}
 
-    public void setObjectY (int valueToSet) {
-        this.objY.setText(String.valueOf(valueToSet));
-    }
+	public void setObjectY(String textToSet) {
+		this.objY.setText(textToSet);
+	}
 
-    public int getObjectColor() {
-        return objColorPicker.getColorValue();
-    }
+	public void setObjectY(int valueToSet) {
+		this.objY.setText(String.valueOf(valueToSet));
+	}
 
-    public void setObjectColor(int colorValueToSet) {
-        this.objColorPicker.setColorValue(colorValueToSet);
-    }
+	public int getObjectColor() {
+		return objColorPicker.getColorValue();
+	}
 
-    public int getBackgroundColorValue() {
-        return backColorPicker.getColorValue();
-    }
+	public void setObjectColor(int colorValueToSet) {
+		this.objColorPicker.setColorValue(colorValueToSet);
+	}
 
-    public DropdownList getLayerList() {
-        return this.layerList;
-    }
+	public int getBackgroundColorValue() {
+		return backColorPicker.getColorValue();
+	}
 
-    public int getCurrentLayerIndex() {
+	public DropdownList getLayerList() {
+		return this.layerList;
+	}
+
+	public int getCurrentLayerIndex() {
 		String curSel = ((HashMap<String, Object>) (layerList.getItem((int) (layerList.getValue())))).get("value")
 				.toString();
 		int index = Integer.parseInt(String.valueOf(curSel.charAt(curSel.length() - 1)));
-		//System.out.println("String: " + curSel + "\nIndex:" + index);
+		// System.out.println("String: " + curSel + "\nIndex:" + index);
 		return index;
 	}
 
-    public String getCurrentShape() {
+	public String getCurrentShape() {
 		return ((HashMap<String, Object>) (objType.getItem((int) (objType.getValue())))).get("value").toString();
 	}
 
