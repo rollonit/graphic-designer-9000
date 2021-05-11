@@ -1,3 +1,4 @@
 *.gpg
 /bin/
 /data/*.txt
+/data/*.sql
