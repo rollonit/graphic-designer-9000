@@ -25,8 +25,9 @@ public class UI {
 	PFont UIinputFont, UIheadFont;
 	int UIobjPropsLevel, UIobjButtonLevel;
 
-	public UI(PApplet pApplet) {
+	public UI(PApplet pApplet, Canvas canvas) {
 		this.pApplet = pApplet;
+		layerlist = new LayerList(pApplet, canvas, 1015, 50, 250, 280);
 		cp5 = new ControlP5(this.pApplet);
 		UIcolor = 0xFFFFFFFF;
 		UIinputFont = pApplet.createFont("Arial", 15);
@@ -35,7 +36,7 @@ public class UI {
 		UIobjButtonLevel = 350;
 	}
 
-	public void init(Canvas canvas) {
+	public void init() {
 		pApplet.background(25);
 
 		objProps = cp5.addLabel("objProbs")
@@ -116,9 +117,6 @@ public class UI {
 				.setSize(250, 30)
 				.setFont(UIheadFont)
 				.setColor(UIcolor);
-
-		layerlist = new LayerList(pApplet, 1015, 50, 250, 280);
-		layerlist.associateCanvas(canvas);
 		
 		cp5.addButton("addLayer")
 			.setPosition(1015, UIobjButtonLevel)

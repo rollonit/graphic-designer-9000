@@ -15,19 +15,19 @@ public class Layer {
 	}
 
 	public void addShape(ShapeType type, int beginX, int beginY, int endX, int endY, int color) {
-		Shape s = new Shape(pApplet);
+		Shape shape = new Shape(pApplet);
 		switch (type) {
 		case SQUARE:
-			s.createSquare(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
+			shape.createSquare(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
 			break;
 		case TRIANGLE:
-			s.createTriangle(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
+			shape.createTriangle(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
 			break;
 		case ELLIPSE:
-			s.createEllipse(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
+			shape.createEllipse(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
 			break;
 		}
-		this.shapes.add(s);
+		this.shapes.add(shape);
 	}
 
 	public void draw() {

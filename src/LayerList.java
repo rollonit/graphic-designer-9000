@@ -16,8 +16,9 @@ public class LayerList {
 
 	PShape eye;
 
-	public LayerList(PApplet pApplet, int x, int y, int w, int h) {
+	public LayerList(PApplet pApplet, Canvas canvas, int x, int y, int w, int h) {
 		this.pApplet = pApplet;
+		this.canvas = canvas;
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -54,19 +55,8 @@ public class LayerList {
 		}
 	}
 
-	public void associateCanvas(Canvas canvas) {
-		this.canvas = canvas;
-	}
-
 	public int getCurrentLayerIndex() {
 		return this.selectedLayerIndex;
-	}
-
-	private boolean isInVisBox(int x, int y, int index) {
-		return (x >= (this.x + this.visBoxPadding)
-				&& x <= (this.x + this.visBoxPadding + listWidth - this.visBoxPadding * 2))
-				&& (y >= this.y + (index * listWidth) + this.visBoxPadding && y <= (this.y + (index * listWidth)
-						+ this.visBoxPadding + listWidth - this.visBoxPadding * 2));
 	}
 
 	private boolean isInUpBox() {
@@ -84,6 +74,13 @@ public class LayerList {
 	private boolean isInListItem(int x, int y, int index) {
 		return (x >= this.x && x <= this.x + this.w) && (y >= (this.y + (index * this.listWidth))
 				&& y <= (this.y + (index * this.listWidth)) + this.listWidth);
+	}
+
+	private boolean isInVisBox(int x, int y, int index) {
+		return (x >= (this.x + this.visBoxPadding)
+				&& x <= (this.x + this.visBoxPadding + listWidth - this.visBoxPadding * 2))
+				&& (y >= this.y + (index * listWidth) + this.visBoxPadding && y <= (this.y + (index * listWidth)
+						+ this.visBoxPadding + listWidth - this.visBoxPadding * 2));
 	}
 
 	public void click() {
