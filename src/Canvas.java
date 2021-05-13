@@ -24,6 +24,11 @@ public class Canvas {
 	private boolean creatingShape, draggingShape;
 
 	UI ui;
+	
+	DB db;
+	
+		// DB 
+		
 
 	public Canvas(PApplet pApplet, int x, int y, int h, int w) {
 		this.pApplet = pApplet;
