@@ -1,6 +1,14 @@
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
+/**
+ * <h1>Graphics Designer 9000</h1> A basic graphics design software written in
+ * Java using Processing.
+ * 
+ * @author rollonit
+ * @author Klemens Fliri
+ * @version 1
+ */
 public class Application extends PApplet {
 
 	Canvas mainApp;
@@ -18,8 +26,6 @@ public class Application extends PApplet {
 	public void setup() {
 		mainApp = new Canvas(this, 280, 5, 710, 720);
 		mainApp.init();
-		
-		database = new DB();
 	}
 
 	public void draw() {

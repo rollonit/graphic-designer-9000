@@ -4,10 +4,14 @@ import processing.core.PApplet;
 public class DB extends PApplet {
 
 	SQLite db;
-	UI ui;
+	Canvas canvas;
+	PApplet pApplet;
 	
-	public DB() {
+	public DB(PApplet pApplet, Canvas canvas) {
 		db = new SQLite(this, "data/db.sqlite");
+		this.canvas = canvas;
+		this.pApplet = pApplet;
+		
 		try {
 			if (db.connect()) {
 				db.query("SELECT * FROM shape");
