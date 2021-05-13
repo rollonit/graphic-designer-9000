@@ -1,16 +1,17 @@
 import de.bezier.data.sql.*;
 import processing.core.PApplet;
 
-public class DB {
+public class DB extends PApplet {
 
 	SQLite db;
-
+	
 	public DB() {
-		db = new SQLite(null, "data/db.sql");
+		db = new SQLite(this, "data/db.sqlite");
 		try {
 			if (db.connect()) {
 				db.query("SELECT * FROM shape");
 
+				//catching the latest information
 				while (db.next()) {
 					PApplet.print(db.getInt("#i") + ", ");
 					PApplet.print(db.getInt("#s") + ", ");
@@ -24,10 +25,13 @@ public class DB {
 					PApplet.println();
 				}
 
-				// db.query("UPDATE shape SET )
+				//updating information
+				//db.query("UPDATE shape");
 
 				try {
-					db.query("INSERT INTO contacts VALUES(\"Oak Trebb\", \"Test 1 \", 4, 123)");
+					
+					//insert new information
+					//db.query("INSERT INTO shape VALUES(1, 1, 50, 50, 20, 10, 12, 255)");
 				} catch (Exception e) {
 					// Your only way to see whether an UPDATE or INSERT statement worked
 					// is when no exception occurred
@@ -37,6 +41,9 @@ public class DB {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
+
+	
 }
+	
+

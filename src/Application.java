@@ -4,6 +4,8 @@ import processing.event.MouseEvent;
 public class Application extends PApplet {
 
 	Canvas mainApp;
+	
+	DB database;
 
 	public static void main(String[] args) {
 		PApplet.main("Application");
@@ -16,6 +18,8 @@ public class Application extends PApplet {
 	public void setup() {
 		mainApp = new Canvas(this, 280, 5, 710, 720);
 		mainApp.init();
+		
+		database = new DB();
 	}
 
 	public void draw() {
