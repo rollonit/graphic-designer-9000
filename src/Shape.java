@@ -4,6 +4,17 @@ import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;
 
+/**
+ * A shape class that encompasses the PShape class and contains methods for
+ * creating and editing classes. It also stores certain other useful
+ * information and has some utility functions. It currently only works with three
+ * shapes:
+ * <ul>
+ * <li>Square (Rectangle)</li>
+ * <li>Triangle</li>
+ * <li>Ellipse</li>
+ * </ul>
+ */
 public class Shape {
 
 	private PShape shape;

@@ -12,8 +12,6 @@ import processing.event.MouseEvent;
 public class Application extends PApplet {
 
 	Canvas mainApp;
-	
-	DB database;
 
 	public static void main(String[] args) {
 		PApplet.main("Application");

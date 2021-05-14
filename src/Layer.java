@@ -2,18 +2,38 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 
+/**
+ * Class which represents each layer and stores the shapes in that layer.
+ */
 public class Layer {
 	private ArrayList<Shape> shapes;
 
 	PApplet pApplet;
 	private boolean isVisible;
+	private String name;
 
-	public Layer(PApplet pApplet) {
+	/**
+	 * Default constructor for the Layer class.
+	 * 
+	 * @param pApplet Handle for main PApplet.
+	 */
+	public Layer(PApplet pApplet, int layerIndex) {
 		shapes = new ArrayList<>();
 		this.pApplet = pApplet;
 		this.isVisible = true;
+		this.name = "Layer " + layerIndex;
 	}
 
+	/**
+	 * Adds a new shape to the layer
+	 * 
+	 * @param type   Type of shape to add (Square, Triangle or Ellipse).
+	 * @param beginX X-coordinate of corner 1.
+	 * @param beginY Y-coordinate of corner 1.
+	 * @param endX   X-coordinate of corner 2.
+	 * @param endY   Y-coordinate of corner 2.
+	 * @param color  Color of shape to add.
+	 */
 	public void addShape(ShapeType type, int beginX, int beginY, int endX, int endY, int color) {
 		Shape shape = new Shape(pApplet);
 		switch (type) {
@@ -30,6 +50,9 @@ public class Layer {
 		this.shapes.add(shape);
 	}
 
+	/**
+	 * Draw call for this layer. Draws all the shapes.
+	 */
 	public void draw() {
 		for (Shape shape : shapes) {
 			shape.draw();
@@ -92,5 +115,13 @@ public class Layer {
 
 	public void toggleVisibility() {
 		this.isVisible = !this.isVisible;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String nameToSet) {
+		this.name = nameToSet;
 	}
 }
