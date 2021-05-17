@@ -198,6 +198,16 @@ public class Canvas {
 		this.draggingShape = false;
 	}
 
+	// FILE OPERATIONS
+
+	public void loadFile() {
+		db.read();
+	}
+
+	public void saveFile() {
+		db.write();
+	}
+
 	// UTILITY FUNCTIONS
 	/**
 	 * Add a shape to the currently selected layer.

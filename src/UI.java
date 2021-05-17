@@ -14,7 +14,7 @@ public class UI {
 
 	ControlP5 cp5;
 	Textlabel objProps, backProps, layerHead;
-	Textfield objectName;
+	Textfield objectName, fileName;
 	Textfield objX, objY, objRot;
 	ColorPicker objColorPicker, backColorPicker;
 	DropdownList objType;
@@ -111,6 +111,7 @@ public class UI {
 							.setPosition(15, 635)
 							.setSize(250, 550);
 		
+		// Layer controls
 		layerHead = backProps = cp5.addLabel("layerHead")
 				.setPosition(1015, 15)
 				.setText("Layers")
@@ -125,6 +126,24 @@ public class UI {
 	
 		cp5.addButton("removeLayer")
 			.setPosition(1145, UIobjButtonLevel)
+			.setSize(120, 30)
+			.setColorValue(UIcolor);
+
+		// File operations controls
+		fileName = cp5.addTextfield("fileName")
+						.setPosition(1015, 580)
+						.setSize(250, 30)
+						.setFont(UIinputFont)
+						.setFocus(true)
+						.setColor(UIcolor);
+
+		cp5.addButton("loadFile")
+			.setPosition(1015, 635)
+			.setSize(120, 30)
+			.setColorValue(UIcolor);
+		
+		cp5.addButton("saveFile")
+			.setPosition(1145, 635)
 			.setSize(120, 30)
 			.setColorValue(UIcolor);
 	}

@@ -47,6 +47,14 @@ public class Application extends PApplet {
 		mainApp.removeLayer();
 	}
 
+	public void loadFile() {
+		mainApp.loadFile();
+	}
+
+	public void saveFile() {
+		mainApp.saveFile();
+	}
+
 	public void mousePressed(MouseEvent event) {
 		if (event.getButton() == RIGHT) {
 			mainApp.beginShape();
