@@ -274,6 +274,10 @@ public class Shape {
 		this.name = nameToSet;
 	}
 
+	public ShapeType getType() {
+		return this.type;
+	}
+
 	public int getX() {
 		return this.x;
 	}
