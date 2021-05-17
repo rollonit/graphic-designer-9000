@@ -125,6 +125,12 @@ public class Canvas {
 		layers.add(new Layer(pApplet, this.highestLayer++));
 	}
 
+	/**
+	 * Custom add methods to add shapes directly, parametrically.
+	 * 
+	 * @param name       Name of the layer, can be anything.
+	 * @param visibility Is the layer is visible or not.
+	 */
 	public void addLayer(String name, boolean visibility) {
 		layers.add(new Layer(pApplet, name, visibility));
 	}

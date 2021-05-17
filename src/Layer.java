@@ -25,7 +25,7 @@ public class Layer {
 	}
 
 	/**
-	 * A constructor with more paramaters for use during a direct DB load.
+	 * A constructor with more parameters for use during a direct DB load.
 	 * 
 	 * @param pApplet    Handle for main PApplet
 	 * @param name       Name of the layer, can be anything.
