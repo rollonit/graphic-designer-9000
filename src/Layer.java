@@ -65,6 +65,35 @@ public class Layer {
 	}
 
 	/**
+	 * Adds a shape to the layer using more direct parameters.
+	 * 
+	 * 
+	 * 
+	 * @param x      X- coordinate of the shape.
+	 * @param y      Y- coordinate of the shape.
+	 * @param w      Width of the shape.
+	 * @param h      Height of the shape.
+	 * @param stroke The stroke color of the shape.
+	 * @param color  Color of the shape.
+	 * @param type   Type of shape to be added (Square, Triangle or Ellipse).
+	 */
+	public void addShape(int x, int y, int w, int h, int stroke, int color, ShapeType type) {
+		Shape shape = new Shape(pApplet);
+		switch (type) {
+		case SQUARE:
+			shape.createSquare(x, y, w, h, color);
+			break;
+		case TRIANGLE:
+			shape.createTriangle(x, y, w, h, color);
+			break;
+		case ELLIPSE:
+			shape.createEllipse(x, y, w, h, color);
+			break;
+		}
+		this.shapes.add(shape);
+	}
+
+	/**
 	 * Draw call for this layer. Draws all the shapes.
 	 */
 	public void draw() {
