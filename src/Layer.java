@@ -25,6 +25,20 @@ public class Layer {
 	}
 
 	/**
+	 * A constructor with more paramaters for use during a direct DB load.
+	 * 
+	 * @param pApplet    Handle for main PApplet
+	 * @param name       Name of the layer, can be anything.
+	 * @param visibility If the layer is visible when saved.
+	 */
+	public Layer(PApplet pApplet, String name, boolean visibility) {
+		shapes = new ArrayList<>();
+		this.pApplet = pApplet;
+		this.isVisible = visibility;
+		this.name = name;
+	}
+
+	/**
 	 * Adds a new shape to the layer
 	 * 
 	 * @param type   Type of shape to add (Square, Triangle or Ellipse).

@@ -125,6 +125,10 @@ public class Canvas {
 		layers.add(new Layer(pApplet, this.highestLayer++));
 	}
 
+	public void addLayer(String name, boolean visibility) {
+		layers.add(new Layer(pApplet, name, visibility));
+	}
+
 	public void removeLayer() {
 		layers.remove(ui.getCurrentLayerIndex());
 	}
