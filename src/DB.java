@@ -67,20 +67,21 @@ public class DB extends PApplet {
 
 	public void write() {
 
-		String type;
+		String type = "";
 
 		try {
 			if (db.connect()) {
 
 				// write layers
-				for (int i = 0; i <= canvas.getLayers().size(); i++) {
-					String visible = canvas.getLayer(i).isVisible() ? "true" : "false";
-					db.query("INSERT INTO layer VALUES(\"i\", \"canvas.getLayer(i).getName()\", \"visible\")");
+				for (int i = 0; i < canvas.getLayers().size(); i++) {
+					int visible = canvas.getLayer(i).isVisible() ? 1 : 0;
+					db.query("INSERT INTO layer VALUES(" + i + ", \"" + canvas.getLayer(i).getName() + "\", "
+							+ visible + ")");
 				}
 
 				// write shapes
-				for (int i = 0; i <= canvas.getLayers().size(); i++) {
-					for (int j = 0; j <= layer.getShapes().size(); j++)
+				for (int i = 0; i < canvas.getLayers().size(); i++) {
+					for (int j = 0; j < layer.getShapes().size(); j++) {
 						switch (canvas.getLayer(i).getShape(j).getType()) {
 						case SQUARE:
 							type = "SQUARE";
@@ -92,8 +93,26 @@ public class DB extends PApplet {
 							type = "ELLIPSE";
 							break;
 						}
-					db.query(
-							"INSERT INTO shape VALUES(\"i\", \"j\", \"type\", \"canvas.getLayer(i).getShape(j).getName()\", \"canvas.getLayer(i).getShape(j).getX()\", \"canvas.getLayer(i).getShape(j).getY()\", \"canvas.getLayer(i).getShape(j).getH()\", \"canvas.getLayer(i).getShape(j).getW()\", \"canvas.getLayer(i).getShape(j).getStroke()\", \"canvas.getLayer(i).getShape(j).getColor()\") ");
+
+						db.query(
+						"INSERT INTO shape VALUES(\""+i+"\", \""+j+"\", \""+type+"\",
+						\""+canvas.getLayer(i).getShape(j).getName()+"\",
+						\""+canvas.getLayer(i).getShape(j).getX()+"\",
+						\""+canvas.getLayer(i).getShape(j).getY()+"\",
+						\""+canvas.getLayer(i).getShape(j).getH()+"\",
+						\""+canvas.getLayer(i).getShape(j).getW()+"\",
+						\""+canvas.getLayer(i).getShape(j).getStroke()+"\",
+						\""+canvas.getLayer(i).getShape(j).getColor()+"\") ");
+						
+						PApplet.print("INSERT INTO shape VALUES(\"" + i + "\", \"" + j + "\", \"" + type + "\", \""
+								+ canvas.getLayer(i).getShape(j).getName() + "\", \""
+								+ canvas.getLayer(i).getShape(j).getX() + "\", \""
+								+ canvas.getLayer(i).getShape(j).getY() + "\", \""
+								+ canvas.getLayer(i).getShape(j).getH() + "\", \""
+								+ canvas.getLayer(i).getShape(j).getW() + "\", \""
+								+ canvas.getLayer(i).getShape(j).getStroke() + "\", \""
+								+ canvas.getLayer(i).getShape(j).getColor() + "\") ");
+					}
 				}
 
 			}
