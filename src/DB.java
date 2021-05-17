@@ -5,6 +5,7 @@ public class DB extends PApplet {
 
 	SQLite db;
 	Canvas canvas;
+	Layer layer;
 	PApplet pApplet;
 
 	public DB(PApplet pApplet, Canvas canvas) {
@@ -12,11 +13,11 @@ public class DB extends PApplet {
 		this.canvas = canvas;
 		this.pApplet = pApplet;
 
-		this.read();
-
 	}
 
 	public void read() {
+		ShapeType type;
+
 		try {
 			if (db.connect()) {
 				db.query("SELECT * FROM layer ORDER BY #l");
@@ -30,15 +31,13 @@ public class DB extends PApplet {
 					PApplet.print(db.getInt("visibility"));
 				}
 			}
-			
+
 			if (db.connect()) {
 				db.query("SELECT * FROM shape ORDER BY #s");
 
-				ShapeType type;
-				
 				// catching the latest information
 				while (db.next()) {
-					
+
 					if (db.getString("type").equals("SQUARE")) {
 						type = ShapeType.SQUARE;
 					} else if (db.getString("type").equals("TRIANGLE")) {
@@ -47,15 +46,15 @@ public class DB extends PApplet {
 						type = ShapeType.ELLIPSE;
 					}
 
-					canvas.addToLayer(db.getInt("#l"), type, db.getString("name"), db.getInt("x"), db.getInt("y"), db.getInt("h"), db.getInt("w"), db.getInt("stroke"), db.getInt("color"));
+					canvas.addToLayer(db.getInt("#l"), type, db.getString("name"), db.getInt("x"), db.getInt("y"),
+							db.getInt("h"), db.getInt("w"), db.getInt("stroke"), db.getInt("color"));
 
-					
 					PApplet.print(db.getString("name"));
 					PApplet.print(db.getString("x"));
 					PApplet.print(db.getString("y"));
-					
+
 				}
-				
+
 			}
 		}
 
@@ -65,6 +64,47 @@ public class DB extends PApplet {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void write() {
+
+		String type;
+
+		try {
+			if (db.connect()) {
+
+				// write layers
+				for (int i = 0; i <= canvas.getLayers().size(); i++) {
+					String visible = canvas.getLayer(i).isVisible() ? "true" : "false";
+					db.query("INSERT INTO layer VALUES(\"i\", \"canvas.getLayer(i).getName()\", \"visible\")");
+				}
+
+				// write shapes
+				for (int i = 0; i <= canvas.getLayers().size(); i++) {
+					for (int j = 0; j <= layer.getShapes().size(); j++)
+						switch (canvas.getLayer(i).getShape(j).getType()) {
+						case SQUARE:
+							type = "SQUARE";
+							break;
+						case TRIANGLE:
+							type = "TRIANGLE";
+							break;
+						case ELLIPSE:
+							type = "ELLIPSE";
+							break;
+						}
+					db.query(
+							"INSERT INTO shape VALUES(\"i\", \"j\", \"type\", \"canvas.getLayer(i).getShape(j).getName()\", \"canvas.getLayer(i).getShape(j).getX()\", \"canvas.getLayer(i).getShape(j).getY()\", \"canvas.getLayer(i).getShape(j).getH()\", \"canvas.getLayer(i).getShape(j).getW()\", \"canvas.getLayer(i).getShape(j).getStroke()\", \"canvas.getLayer(i).getShape(j).getColor()\") ");
+				}
+
+			}
+
+		}
+
+		catch (Exception e) {
+			// Your only way to see whether an UPDATE or INSERT statement worked
+			// is when no exception occurred
+			e.printStackTrace();
+		}
+	}
 
 }
