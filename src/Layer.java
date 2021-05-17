@@ -76,8 +76,9 @@ public class Layer {
 	 * @param stroke The stroke color of the shape.
 	 * @param color  Color of the shape.
 	 * @param type   Type of shape to be added (Square, Triangle or Ellipse).
+	 * @param name   Name of the shape.
 	 */
-	public void addShape(int x, int y, int w, int h, int stroke, int color, ShapeType type) {
+	public void addShape(int x, int y, int w, int h, int stroke, int color, ShapeType type, String name) {
 		Shape shape = new Shape(pApplet);
 		switch (type) {
 		case SQUARE:
@@ -90,6 +91,7 @@ public class Layer {
 			shape.createEllipse(x, y, w, h, color);
 			break;
 		}
+		shape.setName(name);
 		this.shapes.add(shape);
 	}
 

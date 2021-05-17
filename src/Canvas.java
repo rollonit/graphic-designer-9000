@@ -224,15 +224,18 @@ public class Canvas {
 	 * 
 	 * @param layerToAdd Layer index to add the shape to.
 	 * @param type       Type of shape to be added (Square, Triangle or Ellipse).
+	 * @param name       Name of the shape.
 	 * @param x          X- coordinate of the shape.
 	 * @param y          Y- coordinate of the shape.
 	 * @param w          Width of the shape.
 	 * @param h          Height of the shape.
 	 * @param stroke     The stroke color of the shape.
 	 * @param color      Color of the shape.
+	 * 
 	 */
-	public void addToLayer(int layerToAdd, ShapeType type, int x, int y, int w, int h, int stroke, int color) {
-		this.layers.get(layerToAdd).addShape(x, y, w, h, stroke, color, type);
+	public void addToLayer(int layerToAdd, ShapeType type, String name, int x, int y, int w, int h, int stroke,
+			int color) {
+		this.layers.get(layerToAdd).addShape(x, y, w, h, stroke, color, type, name);
 	}
 
 	/**
