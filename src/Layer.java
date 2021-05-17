@@ -169,4 +169,16 @@ public class Layer {
 	public void setName(String nameToSet) {
 		this.name = nameToSet;
 	}
+
+	public ArrayList<Shape> getShapes() {
+		return this.shapes;
+	}
+
+	public Shape getShape(int index) {
+		if (index >= 0 && index < shapes.size()) {
+			return shapes.get(index);
+		} else {
+			return null;
+		}
+	}
 }
