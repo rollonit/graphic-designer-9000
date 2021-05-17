@@ -309,4 +309,12 @@ public class Canvas {
 	public ArrayList<Layer> getLayers() {
 		return layers;
 	}
+
+	public Layer getLayer(int index) {
+		if (index >= 0 && index < layers.size()) {
+			return layers.get(index);
+		} else {
+			return null;
+		}
+	}
 }
