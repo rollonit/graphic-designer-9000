@@ -6,53 +6,65 @@ public class DB extends PApplet {
 	SQLite db;
 	Canvas canvas;
 	PApplet pApplet;
-	
+
 	public DB(PApplet pApplet, Canvas canvas) {
 		db = new SQLite(this, "data/db.sqlite");
 		this.canvas = canvas;
 		this.pApplet = pApplet;
-		
+
+		this.read();
+
+	}
+
+	public void read() {
 		try {
 			if (db.connect()) {
-				db.query("SELECT * FROM shape");
+				db.query("SELECT * FROM layer ORDER BY #l");
 
-				//catching the latest information
+				// catching the latest information
 				while (db.next()) {
-					PApplet.print(db.getInt("#i") + ", ");
-					PApplet.print(db.getInt("#s") + ", ");
-					PApplet.print(db.getString("name") + ", ");
-					PApplet.print(db.getInt("x") + ", ");
-					PApplet.print(db.getInt("y") + ", ");
-					PApplet.print(db.getInt("h") + ", ");
-					PApplet.print(db.getInt("w") + ", ");
-					PApplet.print(db.getInt("stroke") + ", ");
-					PApplet.print(db.getInt("color") + ", ");
 
-					PApplet.println();
-				}
-				
+					canvas.addLayer(db.getString("name"), (db.getInt("visibility") == 1) ? true : false);
 
-				//updating information
-				//db.query("UPDATE shape");
-
-				try {
-					
-					//insert new information
-					//db.query("INSERT INTO shape VALUES(1, 1, 50, 50, 20, 10, 12, 255)");
-					//db.query("INSERT INTO shape VALUES(2, 2, ui.getObjectName(), ui.getObjectX(), ui.getObjectY(), 40, 40, 20, ui.getObjectColor()");
-					
-				} catch (Exception e) {
-					// Your only way to see whether an UPDATE or INSERT statement worked
-					// is when no exception occurred
-					e.printStackTrace();
+					PApplet.print(db.getString("name"));
+					PApplet.print(db.getInt("visibility"));
 				}
 			}
-		} catch (Exception e) {
+			
+			if (db.connect()) {
+				db.query("SELECT * FROM shape ORDER BY #s");
+
+				ShapeType type;
+				
+				// catching the latest information
+				while (db.next()) {
+					
+					if (db.getString("type").equals("SQUARE")) {
+						type = ShapeType.SQUARE;
+					} else if (db.getString("type").equals("TRIANGLE")) {
+						type = ShapeType.TRIANGLE;
+					} else {
+						type = ShapeType.ELLIPSE;
+					}
+
+					canvas.addToLayer(db.getInt("#l"), type, db.getString("name"), db.getInt("x"), db.getInt("y"), db.getInt("h"), db.getInt("w"), db.getInt("stroke"), db.getInt("color"));
+
+					
+					PApplet.print(db.getString("name"));
+					PApplet.print(db.getString("x"));
+					PApplet.print(db.getString("y"));
+					
+				}
+				
+			}
+		}
+
+		catch (Exception e) {
+			// Your only way to see whether an UPDATE or INSERT statement worked
+			// is when no exception occurred
 			e.printStackTrace();
 		}
 	}
-
 	
+
 }
-	
-
