@@ -1,46 +1,47 @@
-
-//import processing.core.PApplet;
 import processing.core.PApplet;
 import processing.core.PShape;
-import processing.core.PVector;
 
 /**
  * A shape class that encompasses the PShape class and contains methods for
- * creating and editing classes. It also stores certain other useful
- * information and has some utility functions. It currently only works with three
- * shapes:
+ * creating and editing classes. It also stores certain other useful information
+ * and has some utility functions. It currently only works with three shapes:
  * <ul>
  * <li>Square (Rectangle)</li>
  * <li>Triangle</li>
  * <li>Ellipse</li>
  * </ul>
  */
-public class Shape {
+public abstract class Shape {
 
-	private PShape shape;
-	private PApplet pApplet;
+	protected PShape shape;
+	protected PApplet pApplet;
 
 	private String name;
 
-	private int x;
-	private int y;
-	private int h;
-	private int w;
+	protected int x;
+	protected int y;
+	protected int h;
+	protected int w;
 
-	private int color;
-	private int stroke;
+	protected int color;
+	protected int stroke;
 	private boolean isSelected;
-	private ShapeType type;
+	protected ShapeType type;
 
 	public Shape(PApplet pApplet) {
 		this.pApplet = pApplet;
 		this.name = "";
 	}
 
-	void setup() {
-	}
+	public abstract void create(int x, int y, int w, int h, int stroke, int color);
 
-	private static int[] translate(int x, int y, int w, int h) {
+	public abstract void update();
+
+	public abstract boolean isInShape();
+
+	public abstract void highlightVertices();
+
+	protected static int[] translate(int x, int y, int w, int h) {
 		if (h >= 0 && w >= 0) {
 			int[] out = { x, y, w, h };
 			return out;
@@ -56,84 +57,12 @@ public class Shape {
 		}
 	}
 
-	private void assignCoords(int[] coords) {
+	protected void assignCoords(int[] coords) {
 		this.x = coords[0];
 		this.y = coords[1];
 		this.w = coords[2];
 		this.h = coords[3];
 		System.out.println(coords[0] + ", " + coords[1] + ", " + coords[2] + ", " + coords[3] + ".");
-	}
-
-	public void createSquare(int x, int y, int w, int h, int color) {
-		this.assignCoords(Shape.translate(x, y, w, h));
-		this.color = color;
-		type = ShapeType.SQUARE;
-
-		this.shape = pApplet.createShape();
-		this.shape.beginShape();
-		this.shape.fill(color);
-		this.shape.vertex(this.x, this.y);
-		this.shape.vertex(this.x, this.y + this.h);
-		this.shape.vertex(this.x + this.w, this.y + this.h);
-		this.shape.vertex(this.x + this.w, this.y);
-		this.shape.endShape(PShape.CLOSE);
-		this.shape.setStroke(stroke);
-	}
-
-	private void updateSquare() {
-		this.shape = pApplet.createShape();
-		this.shape.beginShape();
-		this.shape.fill(color);
-		this.shape.vertex(this.x, this.y);
-		this.shape.vertex(this.x, this.y + this.h);
-		this.shape.vertex(this.x + this.w, this.y + this.h);
-		this.shape.vertex(this.x + this.w, this.y);
-		this.shape.endShape(PShape.CLOSE);
-		this.shape.setStroke(stroke);
-	}
-
-	public void createTriangle(int x, int y, int w, int h, int color) {
-		this.assignCoords(Shape.translate(x, y, w, h));
-		this.color = color;
-		type = ShapeType.TRIANGLE;
-
-		this.shape = pApplet.createShape();
-		this.shape.beginShape();
-		this.shape.fill(color);
-		this.shape.vertex(this.x + (this.w / 2), this.y);
-		this.shape.vertex(this.x, this.y + this.h);
-		this.shape.vertex(this.x + this.w, this.y + this.h);
-		this.shape.endShape(PShape.CLOSE);
-		this.shape.setStroke(stroke);
-	}
-
-	private void updateTriangle() {
-		this.shape = pApplet.createShape();
-		this.shape.beginShape();
-		this.shape.fill(color);
-		this.shape.vertex(this.x + (this.w / 2), this.y);
-		this.shape.vertex(this.x, this.y + this.h);
-		this.shape.vertex(this.x + this.w, this.y + this.h);
-		this.shape.endShape(PShape.CLOSE);
-		this.shape.setStroke(stroke);
-	}
-
-	public void createEllipse(int x, int y, int w, int h, int color) {
-		this.assignCoords(Shape.translate(x, y, w, h));
-		this.color = color;
-		type = ShapeType.ELLIPSE;
-
-		pApplet.ellipseMode(PApplet.CORNER);
-		this.shape = pApplet.createShape(PShape.ELLIPSE, this.x, this.y, this.w, this.h);
-		this.shape.setFill(color);
-		this.shape.setStroke(stroke);
-	}
-
-	private void updateEllipse() {
-		pApplet.ellipseMode(PApplet.CORNER);
-		this.shape = pApplet.createShape(PShape.ELLIPSE, this.x, this.y, this.w, this.h);
-		this.shape.setFill(color);
-		this.shape.setStroke(stroke);
 	}
 
 	public void draw() {
@@ -177,93 +106,6 @@ public class Shape {
 
 	public boolean isSelected() {
 		return this.isSelected;
-	}
-
-	private void highlightVertices() {
-		switch (this.type) {
-		case SQUARE:
-		case TRIANGLE:
-			for (int i = 0; i < this.shape.getVertexCount(); i++) {
-				PVector v = this.shape.getVertex(i);
-				// this.pApplet.noStroke();
-				this.pApplet.fill(0xffff0000);
-				this.pApplet.ellipseMode(PApplet.CENTER);
-				this.pApplet.ellipse(v.x, v.y, 7, 7);
-			}
-			break;
-		case ELLIPSE:
-			this.pApplet.fill(0xffff0000);
-			this.pApplet.ellipseMode(PApplet.CENTER);
-			this.pApplet.ellipse(this.x, this.y, 7, 7);
-			this.pApplet.ellipse(this.x, this.y + this.h, 7, 7);
-			this.pApplet.ellipse(this.x + this.w, this.y, 7, 7);
-			this.pApplet.ellipse(this.x + this.w, this.y + this.h, 7, 7);
-		}
-	}
-
-	public boolean isInShape() {
-		/*
-		 * if(this.shape.contains(pApplet.mouseX, pApplet.mouseY)) return true; return
-		 * false;
-		 */
-		switch (this.type) {
-		case SQUARE:
-			return this.isInSquare();
-		case TRIANGLE:
-			return this.isInTriangle();
-		case ELLIPSE:
-			return this.isInEllipse();
-		}
-		return false;
-	}
-
-	private boolean isInEllipse() {
-		double centerX = this.x + this.w / 2;
-		double centerY = this.y + this.h / 2;
-		double det = (Math.pow((pApplet.mouseX - centerX), 2) / Math.pow(w / 2, 2))
-				+ (Math.pow((pApplet.mouseY - centerY), 2) / Math.pow(h / 2, 2));
-		System.out.println("det=" + det);
-		return (det <= 1);
-	}
-
-	private boolean isInTriangle() {
-		double x1 = this.x + this.w / 2;
-		double y1 = this.y;
-		double x2 = this.x;
-		double y2 = this.y + this.h;
-		double x3 = this.x + this.w;
-		double y3 = this.y + this.h;
-		double x = pApplet.mouseX;
-		double y = pApplet.mouseY;
-		double A = area(x1, y1, x2, y2, x3, y3);
-		double A1 = area(x, y, x2, y2, x3, y3);
-		double A2 = area(x1, y1, x, y, x3, y3);
-		double A3 = area(x1, y1, x2, y2, x, y);
-
-		return (Math.abs(A - (A1 + A2 + A3)) < 0.00001);
-	}
-
-	private double area(double x1, double y1, double x2, double y2, double x3, double y3) {
-		return Math.abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
-	}
-
-	private boolean isInSquare() {
-		return (pApplet.mouseX >= this.x && pApplet.mouseX <= (this.x + this.w))
-				&& (pApplet.mouseY >= this.y && pApplet.mouseY <= (this.y + this.h));
-	}
-
-	public void update() {
-		switch (this.type) {
-		case SQUARE:
-			this.updateSquare();
-			break;
-		case TRIANGLE:
-			this.updateTriangle();
-			break;
-		case ELLIPSE:
-			this.updateEllipse();
-			break;
-		}
 	}
 
 	public String getName() {

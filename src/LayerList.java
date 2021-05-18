@@ -98,7 +98,7 @@ public class LayerList {
 
 	public boolean isInList(int x, int y) {
 		return (x >= this.x && x <= (this.x + this.w)) && (y >= this.y && y <= (this.y + this.h));
-	}	
+	}
 
 	private boolean isInListItem(int x, int y, int index) {
 		return (x >= this.x && x <= this.x + this.w) && (y >= (this.y + (index * this.listWidth))

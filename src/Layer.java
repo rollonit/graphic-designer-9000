@@ -49,25 +49,22 @@ public class Layer {
 	 * @param color  Color of shape to add.
 	 */
 	public void addShape(ShapeType type, int beginX, int beginY, int endX, int endY, int color) {
-		Shape shape = new Shape(pApplet);
+		int stroke = 0;
 		switch (type) {
 		case SQUARE:
-			shape.createSquare(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
+			this.shapes.add(new Square(pApplet, beginX, beginY, -(beginX - endX), -(beginY - endY), stroke, color));
 			break;
 		case TRIANGLE:
-			shape.createTriangle(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
+			this.shapes.add(new Triangle(pApplet, beginX, beginY, -(beginX - endX), -(beginY - endY), stroke, color));
 			break;
 		case ELLIPSE:
-			shape.createEllipse(beginX, beginY, -(beginX - endX), -(beginY - endY), color);
+			this.shapes.add(new Ellipse(pApplet, beginX, beginY, -(beginX - endX), -(beginY - endY), stroke, color));
 			break;
 		}
-		this.shapes.add(shape);
 	}
 
 	/**
 	 * Adds a shape to the layer using more direct parameters.
-	 * 
-	 * 
 	 * 
 	 * @param x      X- coordinate of the shape.
 	 * @param y      Y- coordinate of the shape.
@@ -79,16 +76,16 @@ public class Layer {
 	 * @param name   Name of the shape.
 	 */
 	public void addShape(int x, int y, int w, int h, int stroke, int color, ShapeType type, String name) {
-		Shape shape = new Shape(pApplet);
+		Shape shape = null;
 		switch (type) {
 		case SQUARE:
-			shape.createSquare(x, y, w, h, color);
+			shape = new Square(pApplet, x, y, w, h, stroke, color);
 			break;
 		case TRIANGLE:
-			shape.createTriangle(x, y, w, h, color);
+			shape = new Triangle(pApplet, x, y, w, h, stroke, color);
 			break;
 		case ELLIPSE:
-			shape.createEllipse(x, y, w, h, color);
+			shape = new Ellipse(pApplet, x, y, w, h, stroke, color);
 			break;
 		}
 		shape.setName(name);
