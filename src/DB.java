@@ -95,14 +95,7 @@ public class DB extends PApplet {
 						}
 
 						db.query(
-						"INSERT INTO shape VALUES(\""+i+"\", \""+j+"\", \""+type+"\",
-						\""+canvas.getLayer(i).getShape(j).getName()+"\",
-						\""+canvas.getLayer(i).getShape(j).getX()+"\",
-						\""+canvas.getLayer(i).getShape(j).getY()+"\",
-						\""+canvas.getLayer(i).getShape(j).getH()+"\",
-						\""+canvas.getLayer(i).getShape(j).getW()+"\",
-						\""+canvas.getLayer(i).getShape(j).getStroke()+"\",
-						\""+canvas.getLayer(i).getShape(j).getColor()+"\") ");
+						"INSERT INTO shape VALUES(\""+i+"\", \""+j+"\", \""+type+"\", \""+canvas.getLayer(i).getShape(j).getName()+"\",\""+canvas.getLayer(i).getShape(j).getX()+"\",\""+canvas.getLayer(i).getShape(j).getY()+"\",\""+canvas.getLayer(i).getShape(j).getH()+"\",\""+canvas.getLayer(i).getShape(j).getW()+"\",\""+canvas.getLayer(i).getShape(j).getStroke()+"\",\""+canvas.getLayer(i).getShape(j).getColor()+"\") ");
 						
 						PApplet.print("INSERT INTO shape VALUES(\"" + i + "\", \"" + j + "\", \"" + type + "\", \""
 								+ canvas.getLayer(i).getShape(j).getName() + "\", \""
