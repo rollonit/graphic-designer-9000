@@ -2,8 +2,10 @@ import processing.core.PApplet;
 import processing.event.MouseEvent;
 
 /**
- * <h1>Graphics Designer 9000</h1> A basic graphics design software written in
- * Java using Processing.
+ * <h1>Graphics Designer 9000</h1>
+ * <h3>A basic graphics design software written in Java using Processing.</h3>
+ * It has basic shape creation and edition functions, along with layer that can
+ * be rearranged and toggled on and off.
  * 
  * @author rollonit
  * @author Klemens Fliri

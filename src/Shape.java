@@ -2,14 +2,18 @@ import processing.core.PApplet;
 import processing.core.PShape;
 
 /**
- * A shape class that encompasses the PShape class and contains methods for
- * creating and editing classes. It also stores certain other useful information
- * and has some utility functions. It currently only works with three shapes:
+ * <h3>An abstract shape class that encompasses the PShape class and contains
+ * methods for creating and editing shapes.</h3> It also stores certain other
+ * useful information and has some utility functions.
+ * <p>
+ * It also has a static draw method, but it currently only works with three
+ * shapes:
  * <ul>
  * <li>Square (Rectangle)</li>
  * <li>Triangle</li>
  * <li>Ellipse</li>
  * </ul>
+ * </p>
  */
 public abstract class Shape {
 

@@ -101,6 +101,17 @@ public class Layer {
 		}
 	}
 
+	/**
+	 * <p>
+	 * Performs a select operation, which selects the topmost layer under the
+	 * mouse's current location in the currently selected layer, and then de-selects
+	 * every other shape in that layer.
+	 * </p>
+	 * <p>
+	 * If there is no shape from the current layer under the mouse, it de-selects
+	 * everything in the current layer.
+	 * </p>
+	 */
 	public void select() {
 		boolean somethingSelected = false;
 		for (int i = shapes.size() - 1; i >= 0; i--) {
@@ -116,6 +127,14 @@ public class Layer {
 		}
 	}
 
+	/**
+	 * Updates the currently selected shape with the parameneter provided.
+	 * 
+	 * @param x     The X coordinate of the corner
+	 * @param y     The Y coordinate of the corner
+	 * @param color The color of the shape
+	 * @param name  The name of the shape
+	 */
 	public void save(int x, int y, int color, String name) {
 		this.selectedShape().setX(x);
 		this.selectedShape().setY(y);

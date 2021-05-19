@@ -2,8 +2,13 @@ import processing.core.PApplet;
 import processing.core.PShape;
 
 /**
- * A custom layer list UI element on with visibility and layer re-arrangemnt
- * features.
+ * <h1>Layer List</h1>
+ * <h3>A custom layer list UI element on with visibility and layer re-arrangement
+ * features.</h3>
+ * <p>
+ * Each layer item has a move up and a move down buttons, which can be used to
+ * rearrange them. It also has a visibility toggle.
+ * </p>
  */
 public class LayerList {
 	PApplet pApplet;
@@ -23,6 +28,17 @@ public class LayerList {
 
 	PShape eye, up, down;
 
+	/**
+	 * Default constructor that creates a layer list UI element in with the supplied
+	 * parameters.
+	 * 
+	 * @param pApplet The handle for the PApplet
+	 * @param canvas  The canvas which the layer list is associated with
+	 * @param x       The X coordinate of the corner of the box.
+	 * @param y       The Y coordinate of the corner of the box.
+	 * @param w       The width of the layer box.
+	 * @param h       The height of the layer box.
+	 */
 	public LayerList(PApplet pApplet, Canvas canvas, int x, int y, int w, int h) {
 		this.pApplet = pApplet;
 		this.canvas = canvas;
@@ -48,13 +64,18 @@ public class LayerList {
 
 	}
 
+	/**
+	 * Draw call to draw the list. To be called every frame.
+	 */
 	public void draw() {
+		// Background of the box
 		this.pApplet.fill(100);
 		this.pApplet.rect(this.x, this.y, this.w, this.h);
 
 		for (int i = 0; i < canvas.getLayers().size(); i++) {
 			this.pApplet.stroke(0);
 
+			// List items
 			this.pApplet.fill((this.getCurrentLayerIndex() == i) ? 150 : 100);
 			this.pApplet.rect(this.x, this.y + (i * listWidth), this.w, this.listWidth);
 
@@ -78,10 +99,24 @@ public class LayerList {
 		}
 	}
 
+	/**
+	 * Method to find which layer is currently selected.
+	 * 
+	 * @return The index of the currently selected layer.
+	 */
 	public int getCurrentLayerIndex() {
 		return this.selectedLayerIndex;
 	}
 
+	/**
+	 * Checks if a particular point is in the Up box of a particular
+	 * list item.
+	 * 
+	 * @param x     The X coordinate of the point
+	 * @param y     The Y coordinate of the point
+	 * @param index The index of the list item to check for.
+	 * @return True if the point is in the layer item's Up box.
+	 */
 	private boolean isInUpBox(int x, int y, int index) {
 		System.out.println("UP!");
 		this.moveY = this.y + (index * listWidth) + this.moveBoxPadding;
@@ -89,6 +124,15 @@ public class LayerList {
 				&& (y >= this.moveY && y <= this.moveY + this.moveSide);
 	}
 
+	/**
+	 * Checks if a particular point is in the Down box of a particular
+	 * list item.
+	 * 
+	 * @param x     The X coordinate of the point
+	 * @param y     The Y coordinate of the point
+	 * @param index The index of the list item to check for
+	 * @return True if the point is in the layer item's Down box
+	 */
 	private boolean isInDownBox(int x, int y, int index) {
 		System.out.println("Down!");
 		this.moveY = this.y + (index * listWidth) + this.moveBoxPadding;
@@ -96,10 +140,25 @@ public class LayerList {
 				&& (y >= this.moveY && y <= this.moveY + this.moveSide);
 	}
 
+	/**
+	 * Checks if a point is anywhere within the layer list.
+	 * 
+	 * @param x The X coordinate of the point
+	 * @param y The Y coordinate of the point
+	 * @return True if the point is anywhere within the list
+	 */
 	public boolean isInList(int x, int y) {
 		return (x >= this.x && x <= (this.x + this.w)) && (y >= this.y && y <= (this.y + this.h));
 	}
 
+	/**
+	 * Checks if the mouse is within a particular list item.
+	 * 
+	 * @param x     The X coordinate of the point
+	 * @param y     The Y coordinate of the point
+	 * @param index The index of the list item to check for
+	 * @return True if the point is in somewhere in the list item
+	 */
 	private boolean isInListItem(int x, int y, int index) {
 		return (x >= this.x && x <= this.x + this.w) && (y >= (this.y + (index * this.listWidth))
 				&& y <= (this.y + (index * this.listWidth)) + this.listWidth);
@@ -113,20 +172,27 @@ public class LayerList {
 
 	public void click() {
 		for (int i = 0; i < canvas.getLayers().size(); i++) {
+			// If the mouse is in a particular list item.
 			if (this.isInListItem(pApplet.mouseX, pApplet.mouseY, i)) {
+				// If the mouse is in the visibility toggle box.
 				if (this.isInVisBox(pApplet.mouseX, pApplet.mouseY, i)) {
 					this.canvas.getLayers().get(i).toggleVisibility();
 					System.out.println("Visibility for layer " + i + " has been toggled!");
+					// If the mouse is in the Move Layer Up box. It goes down, because the layers
+					// are ordered ascending, top to bottom.
 				} else if (this.isInUpBox(pApplet.mouseX, pApplet.mouseY, i)) {
 					this.canvas.moveLayer(i, i - 1);
 					this.selectedLayerIndex--;
 					System.out.println("Layer Up Box for layer " + i + " has been clicked!\nLayer " + i
 							+ " moved to position" + (i + 1));
+					// If the mouse is in the Move Layer Down box. See above for why the directions
+					// are flipped.
 				} else if (this.isInDownBox(pApplet.mouseX, pApplet.mouseY, i)) {
 					this.canvas.moveLayer(i, i + 1);
 					this.selectedLayerIndex++;
 					System.out.println("Layer Down Box for layer " + i + " has been clicked!\nLayer " + i
 							+ " moved to position" + (i - 1));
+					// If it's not in any box, which means it was a layer select action.
 				} else {
 					System.out.println("List Item Number " + i + " clicked!");
 					canvas.getLayers().get(this.selectedLayerIndex).deselectAll();

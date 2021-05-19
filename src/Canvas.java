@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 
 /**
- * Canvas class which handles almost all graphical functions.
+ * Canvas class for the graphics designer which handles almost all graphical and
+ * logical functions.
  *
  * @author rollonit
  * @author Klemens Fliri
