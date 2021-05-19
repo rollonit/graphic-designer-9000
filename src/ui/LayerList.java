@@ -84,9 +84,9 @@ public class LayerList {
 
 			// Visibility box
 			visBoxY = this.y + (i * listWidth) + this.visBoxPadding;
-			this.pApplet.fill(canvas.getLayers().get(i).isVisible() ? 120 : 70);
+			this.pApplet.fill(canvas.getLayer(i).isVisible() ? 120 : 70);
 			this.pApplet.rect(visBoxX, visBoxY, visBoxSide, visBoxSide);
-			if (canvas.getLayers().get(i).isVisible())
+			if (canvas.getLayer(i).isVisible())
 				this.pApplet.shape(eye, visBoxX, visBoxY, visBoxSide, visBoxSide);
 
 			// Move Buttons
@@ -97,7 +97,7 @@ public class LayerList {
 			// Move Down Button
 			this.pApplet.fill(0);
 			this.pApplet.textAlign(PApplet.LEFT, PApplet.CENTER);
-			this.pApplet.text(canvas.getLayers().get(i).getName(), this.x + listWidth + 4,
+			this.pApplet.text(canvas.getLayer(i).getName(), this.x + listWidth + 4,
 					(listWidth / 2) + this.y + (i * listWidth));
 		}
 	}
@@ -177,7 +177,7 @@ public class LayerList {
 			if (this.isInListItem(pApplet.mouseX, pApplet.mouseY, i)) {
 				// If the mouse is in the visibility toggle box.
 				if (this.isInVisBox(pApplet.mouseX, pApplet.mouseY, i)) {
-					this.canvas.getLayers().get(i).toggleVisibility();
+					this.canvas.getLayer(i).toggleVisibility();
 					System.out.println("Visibility for layer " + i + " has been toggled!");
 					// If the mouse is in the Move Layer Up box. It goes down, because the layers
 					// are ordered ascending, top to bottom.

@@ -244,7 +244,7 @@ public class Canvas {
 	}
 
 	/**
-	 * Adds a shape paramertically directly to a specific layer, to be used with DB
+	 * Adds a shape parametrically directly to a specific layer, to be used with DB
 	 * operations.
 	 * 
 	 * @param layerToAdd Layer index to add the shape to.
@@ -264,7 +264,7 @@ public class Canvas {
 	}
 
 	/**
-	 * Moves a given layer in the canvas to a given postion
+	 * Moves a given layer in the canvas to a given position.
 	 * 
 	 * @param layerToMove The index of the layer to be moved.
 	 * @param whereToMove the index to which the layer is to be moved.
