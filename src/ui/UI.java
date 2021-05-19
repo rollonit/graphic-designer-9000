@@ -1,9 +1,11 @@
+package ui;
 import controlP5.ColorPicker;
 import controlP5.ControlP5;
 import controlP5.DropdownList;
 import controlP5.Textfield;
 import controlP5.Textlabel;
-
+import core.Canvas;
+import core.ShapeType;
 import processing.core.PApplet;
 import processing.core.PFont;
 

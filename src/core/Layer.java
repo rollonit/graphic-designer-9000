@@ -1,6 +1,10 @@
+package core;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import shapes.Ellipse;
+import shapes.Square;
+import shapes.Triangle;
 
 /**
  * Class which represents each layer and stores the shapes in that layer.

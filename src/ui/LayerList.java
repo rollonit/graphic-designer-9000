@@ -1,3 +1,5 @@
+package ui;
+import core.Canvas;
 import processing.core.PApplet;
 import processing.core.PShape;
 

@@ -1,7 +1,13 @@
+package core;
 import de.bezier.data.sql.*;
 import processing.core.PApplet;
 
-public class DB extends PApplet {
+/**
+ * <h3>Database class that handles all the SQlite data read and write
+ * operations.</h3> It must be associated with a certain DB file location, and
+ * reads and writes the layers and shapes from the canvas.
+ */
+public class DB {
 
 	SQLite db;
 	Canvas canvas;
@@ -9,10 +15,9 @@ public class DB extends PApplet {
 	PApplet pApplet;
 
 	public DB(PApplet pApplet, Canvas canvas) {
-		db = new SQLite(this, "data/db.sqlite");
 		this.canvas = canvas;
 		this.pApplet = pApplet;
-
+		db = new SQLite(this.pApplet, "data/db.sqlite");
 	}
 
 	public void read() {
@@ -54,10 +59,8 @@ public class DB extends PApplet {
 					PApplet.print(db.getString("y"));
 
 				}
-
 			}
 		}
-
 		catch (Exception e) {
 			// Your only way to see whether an UPDATE or INSERT statement worked
 			// is when no exception occurred
@@ -75,8 +78,8 @@ public class DB extends PApplet {
 				// write layers
 				for (int i = 0; i < canvas.getLayers().size(); i++) {
 					int visible = canvas.getLayer(i).isVisible() ? 1 : 0;
-					db.query("INSERT INTO layer VALUES(" + i + ", \"" + canvas.getLayer(i).getName() + "\", "
-							+ visible + ")");
+					db.query("INSERT INTO layer VALUES(" + i + ", \"" + canvas.getLayer(i).getName() + "\", " + visible
+							+ ")");
 				}
 
 				// write shapes
@@ -94,9 +97,15 @@ public class DB extends PApplet {
 							break;
 						}
 
-						db.query(
-						"INSERT INTO shape VALUES(\""+i+"\", \""+j+"\", \""+type+"\", \""+canvas.getLayer(i).getShape(j).getName()+"\",\""+canvas.getLayer(i).getShape(j).getX()+"\",\""+canvas.getLayer(i).getShape(j).getY()+"\",\""+canvas.getLayer(i).getShape(j).getH()+"\",\""+canvas.getLayer(i).getShape(j).getW()+"\",\""+canvas.getLayer(i).getShape(j).getStroke()+"\",\""+canvas.getLayer(i).getShape(j).getColor()+"\") ");
-						
+						db.query("INSERT INTO shape VALUES(\"" + i + "\", \"" + j + "\", \"" + type + "\", \""
+								+ canvas.getLayer(i).getShape(j).getName() + "\",\""
+								+ canvas.getLayer(i).getShape(j).getX() + "\",\""
+								+ canvas.getLayer(i).getShape(j).getY() + "\",\""
+								+ canvas.getLayer(i).getShape(j).getH() + "\",\""
+								+ canvas.getLayer(i).getShape(j).getW() + "\",\""
+								+ canvas.getLayer(i).getShape(j).getStroke() + "\",\""
+								+ canvas.getLayer(i).getShape(j).getColor() + "\") ");
+
 						PApplet.print("INSERT INTO shape VALUES(\"" + i + "\", \"" + j + "\", \"" + type + "\", \""
 								+ canvas.getLayer(i).getShape(j).getName() + "\", \""
 								+ canvas.getLayer(i).getShape(j).getX() + "\", \""

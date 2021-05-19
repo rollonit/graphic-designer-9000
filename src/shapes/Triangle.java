@@ -1,3 +1,6 @@
+package shapes;
+import core.Shape;
+import core.ShapeType;
 import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;

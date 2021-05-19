@@ -1,6 +1,8 @@
+package core;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import ui.UI;
 
 /**
  * Canvas class for the graphics designer which handles almost all graphical and
