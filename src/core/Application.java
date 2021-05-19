@@ -17,7 +17,7 @@ public class Application extends PApplet {
 	Canvas mainApp;
 
 	public static void main(String[] args) {
-		PApplet.main("Application");
+		PApplet.main("core.Application");
 	}
 
 	public void settings() {
