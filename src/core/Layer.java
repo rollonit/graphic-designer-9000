@@ -1,4 +1,5 @@
 package core;
+
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -101,7 +102,9 @@ public class Layer {
 	 */
 	public void draw() {
 		for (Shape shape : shapes) {
-			shape.draw();
+			if (!shape.isDragging()) {
+				shape.draw();
+			}
 		}
 	}
 

@@ -1,12 +1,13 @@
 package ui;
+
 import core.Canvas;
 import processing.core.PApplet;
 import processing.core.PShape;
 
 /**
  * <h1>Layer List</h1>
- * <h3>A custom layer list UI element on with visibility and layer re-arrangement
- * features.</h3>
+ * <h3>A custom layer list UI element on with visibility and layer
+ * re-arrangement features.</h3>
  * <p>
  * Each layer item has a move up and a move down buttons, which can be used to
  * rearrange them. It also has a visibility toggle.
@@ -111,8 +112,7 @@ public class LayerList {
 	}
 
 	/**
-	 * Checks if a particular point is in the Up box of a particular
-	 * list item.
+	 * Checks if a particular point is in the Up box of a particular list item.
 	 * 
 	 * @param x     The X coordinate of the point
 	 * @param y     The Y coordinate of the point
@@ -127,8 +127,7 @@ public class LayerList {
 	}
 
 	/**
-	 * Checks if a particular point is in the Down box of a particular
-	 * list item.
+	 * Checks if a particular point is in the Down box of a particular list item.
 	 * 
 	 * @param x     The X coordinate of the point
 	 * @param y     The Y coordinate of the point

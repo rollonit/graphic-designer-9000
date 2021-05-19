@@ -1,4 +1,5 @@
 package core;
+
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -90,8 +91,15 @@ public class Canvas {
 
 		// dynamically draw a shape while it's being created
 		if (creatingShape) {
-			Shape.draw(pApplet, beginX, beginY, -(beginY - pApplet.mouseY), -(beginX - pApplet.mouseX),
+			Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), -(beginY - pApplet.mouseY),
 					ui.getObjectColor(), ui.getCurrentShapeType());
+		}
+
+		// dynamically draw a shape while it's being dragged
+		if (this.draggingShape) {
+			Shape cur = this.getCurrentShape();
+			Shape.draw(pApplet, cur.getX() - (beginX - pApplet.mouseX), cur.getY() - (beginY - pApplet.mouseY),
+					cur.getW(), cur.getH(), cur.getColor(), cur.getType());
 		}
 	}
 
@@ -104,8 +112,8 @@ public class Canvas {
 
 		// check if a shape is selected and the new values are within canvas bounds
 		// before saving
-		if (this.getCurrentLayer().selectedShape() != null && this.isInCanvas(ui.getObjectX(), ui.getObjectY(),
-				this.getCurrentLayer().selectedShape().getH(), this.getCurrentLayer().selectedShape().getW())) {
+		if (this.getCurrentShape() != null && this.isInCanvas(ui.getObjectX(), ui.getObjectY(),
+				this.getCurrentShape().getH(), this.getCurrentShape().getW())) {
 			this.getCurrentLayer().save(ui.getObjectX(), ui.getObjectY(), ui.getObjectColor(), ui.getObjectName());
 		}
 
@@ -119,7 +127,7 @@ public class Canvas {
 		System.out.println("Remove Button Triggered!");
 
 		// Check if a shape is selected before removing it
-		if (this.getCurrentLayer().selectedShape() != null) {
+		if (this.getCurrentShape() != null) {
 			this.getCurrentLayer().remove();
 		}
 	}
@@ -168,8 +176,9 @@ public class Canvas {
 	public void beginDrag() {
 		// Check if left-click drag is in a shape and that shape is selected, and start
 		// shape move
-		if (this.getCurrentLayer().selectedShape() != null && this.getCurrentLayer().selectedShape().isInShape()) {
+		if (this.getCurrentShape() != null && this.getCurrentShape().isInShape()) {
 			this.draggingShape = true;
+			this.getCurrentShape().setDragging(true);
 			this.pApplet.cursor(PApplet.MOVE);
 		}
 
@@ -182,9 +191,9 @@ public class Canvas {
 		// Check if the drag is not too small and if the final state of the shape is
 		// within the canvas before finalizing move
 		if (this.draggingShape && (Math.abs(pApplet.mouseX - this.beginX) + Math.abs(pApplet.mouseY - this.beginY) > 5)
-				&& this.isInCanvas(this.getCurrentLayer().selectedShape().getX() + (pApplet.mouseX - beginX),
-						this.getCurrentLayer().selectedShape().getY() + (pApplet.mouseY - beginY),
-						this.getCurrentLayer().selectedShape().getH(), this.getCurrentLayer().selectedShape().getW())) {
+				&& this.isInCanvas(this.getCurrentShape().getX() + (pApplet.mouseX - beginX),
+						this.getCurrentShape().getY() + (pApplet.mouseY - beginY), this.getCurrentShape().getH(),
+						this.getCurrentShape().getW())) {
 			this.getCurrentLayer().moveBy(pApplet.mouseX - beginX, pApplet.mouseY - beginY);
 			this.updateFields();
 		} else if (this.ui.isInLayerList(pApplet.mouseX, pApplet.mouseY)) {
@@ -198,6 +207,9 @@ public class Canvas {
 
 		// reset cursor
 		this.pApplet.cursor(PApplet.ARROW);
+		if (this.getCurrentShape() != null) {
+			this.getCurrentShape().setDragging(false);
+		}
 		this.draggingShape = false;
 	}
 
@@ -279,11 +291,11 @@ public class Canvas {
 	}
 
 	public void updateFields() {
-		if (this.getCurrentLayer().selectedShape() != null) {
-			ui.setObjectName(this.getCurrentLayer().selectedShape().getName());
-			ui.setObjectX(this.getCurrentLayer().selectedShape().getX());
-			ui.setObjectY(this.getCurrentLayer().selectedShape().getY());
-			ui.setObjectColor(this.getCurrentLayer().selectedShape().getColor());
+		if (this.getCurrentShape() != null) {
+			ui.setObjectName(this.getCurrentShape().getName());
+			ui.setObjectX(this.getCurrentShape().getX());
+			ui.setObjectY(this.getCurrentShape().getY());
+			ui.setObjectColor(this.getCurrentShape().getColor());
 		} else {
 			ui.setObjectName("");
 			ui.setObjectX("");
@@ -317,6 +329,10 @@ public class Canvas {
 
 	private Layer getCurrentLayer() {
 		return layers.get(ui.getCurrentLayerIndex());
+	}
+
+	private Shape getCurrentShape() {
+		return this.getCurrentLayer().selectedShape();
 	}
 
 	public ArrayList<Layer> getLayers() {

@@ -1,4 +1,5 @@
 package core;
+
 import de.bezier.data.sql.*;
 import processing.core.PApplet;
 
@@ -60,8 +61,7 @@ public class DB {
 
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			// Your only way to see whether an UPDATE or INSERT statement worked
 			// is when no exception occurred
 			e.printStackTrace();

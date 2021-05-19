@@ -1,4 +1,5 @@
 package core;
+
 import processing.core.PApplet;
 import processing.core.PShape;
 
@@ -31,6 +32,7 @@ public abstract class Shape {
 	protected int color;
 	protected int stroke;
 	private boolean isSelected;
+	private boolean isDragging;
 	protected ShapeType type;
 
 	public Shape(PApplet pApplet) {
@@ -77,7 +79,7 @@ public abstract class Shape {
 			this.highlightVertices();
 	}
 
-	public static void draw(PApplet p, int x, int y, int h, int w, int color, ShapeType type) {
+	public static void draw(PApplet p, int x, int y, int w, int h, int color, ShapeType type) {
 		p.fill(color);
 		switch (type) {
 		case SQUARE:
@@ -171,5 +173,13 @@ public abstract class Shape {
 
 	public void setStroke(int stroke) {
 		this.stroke = stroke;
+	}
+
+	public void setDragging(boolean isDragging) {
+		this.isDragging = isDragging;
+	}
+
+	public boolean isDragging() {
+		return this.isDragging;
 	}
 }
