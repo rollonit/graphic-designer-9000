@@ -72,7 +72,7 @@ public class LayerList {
 	 */
 	public void draw() {
 		// Background of the box
-		this.pApplet.fill(100);
+		this.pApplet.fill(65);
 		this.pApplet.rect(this.x, this.y, this.w, this.h);
 
 		for (int i = 0; i < canvas.getLayers().size(); i++) {
