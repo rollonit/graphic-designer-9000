@@ -146,8 +146,12 @@ public class Canvas {
 		layers.add(new Layer(pApplet, name, visibility));
 	}
 
-	public void removeLayer() {
-		layers.remove(ui.getCurrentLayerIndex());
+	public void removeSelectedLayer() {
+		ui.removeSelectedLayer();
+	}
+
+	public void removeLayer(int index) {
+		layers.remove(index);
 	}
 
 	// SHAPE CREATION FUNTIONS

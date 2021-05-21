@@ -102,6 +102,17 @@ public class LayerList {
 		}
 	}
 
+	public void removeSelectedLayer() {
+		if (this.canvas.getLayers().size() > 1) {
+			this.canvas.removeLayer(this.getCurrentLayerIndex());
+			if (this.selectedLayerIndex > 0) {
+				this.selectedLayerIndex--;
+			}
+		} else {
+			System.out.println("Only one layer left! Can't remove!");
+		}
+	}
+
 	/**
 	 * Method to find which layer is currently selected.
 	 * 

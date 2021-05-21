@@ -49,7 +49,7 @@ public class Application extends PApplet {
 	}
 
 	public void removeLayer() {
-		mainApp.removeLayer();
+		mainApp.removeSelectedLayer();
 	}
 
 	public void loadFile() {

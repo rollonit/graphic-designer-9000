@@ -230,4 +230,8 @@ public class UI {
 		else
 			return ShapeType.ELLIPSE;
 	}
+
+	public void removeSelectedLayer() {
+		layerlist.removeSelectedLayer();
+	}
 }
