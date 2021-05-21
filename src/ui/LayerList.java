@@ -182,17 +182,19 @@ public class LayerList {
 					// If the mouse is in the Move Layer Up box. It goes down, because the layers
 					// are ordered ascending, top to bottom.
 				} else if (this.isInUpBox(pApplet.mouseX, pApplet.mouseY, i)) {
-					this.canvas.moveLayer(i, i - 1);
-					this.selectedLayerIndex--;
+					if (this.canvas.moveLayer(i, i - 1) == 1) {
+						this.selectedLayerIndex--;
+					}
 					System.out.println("Layer Up Box for layer " + i + " has been clicked!\nLayer " + i
-							+ " moved to position" + (i + 1));
+							+ " moved to position" + (i - 1));
 					// If the mouse is in the Move Layer Down box. See above for why the directions
 					// are flipped.
 				} else if (this.isInDownBox(pApplet.mouseX, pApplet.mouseY, i)) {
-					this.canvas.moveLayer(i, i + 1);
-					this.selectedLayerIndex++;
+					if (this.canvas.moveLayer(i, i + 1) == 1) {
+						this.selectedLayerIndex++;
+					}
 					System.out.println("Layer Down Box for layer " + i + " has been clicked!\nLayer " + i
-							+ " moved to position" + (i - 1));
+							+ " moved to position" + (i + 1));
 					// If it's not in any box, which means it was a layer select action.
 				} else {
 					System.out.println("List Item Number " + i + " clicked!");

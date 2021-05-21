@@ -268,18 +268,21 @@ public class Canvas {
 	 * 
 	 * @param layerToMove The index of the layer to be moved.
 	 * @param whereToMove the index to which the layer is to be moved.
+	 * @return 1 if the move operation is succesful, 0 otherwise
 	 */
-	public void moveLayer(int layerToMove, int whereToMove) {
+	public int moveLayer(int layerToMove, int whereToMove) {
 		if ((layerToMove < 0 || layerToMove >= layers.size()) || (whereToMove < 0 || whereToMove >= layers.size())) {
 			System.out.println("Invalid move operation!");
-			return;
+			return 0;
 		}
-		if (layerToMove > whereToMove) {
-			layers.add(whereToMove, layers.get(layerToMove));
-			layers.remove(layerToMove + 1);
-		} else if (layerToMove < whereToMove) {
-			layers.add(whereToMove, layers.get(layerToMove));
+		if (layerToMove > whereToMove || layerToMove < whereToMove) {
+			Layer temp = this.getLayer(layerToMove);
 			layers.remove(layerToMove);
+			layers.add(whereToMove, temp);
+			return 1;
+		} else {
+			System.out.println("They're the same layer.");
+			return 0;
 		}
 	}
 
