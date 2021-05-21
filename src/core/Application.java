@@ -1,6 +1,7 @@
 package core;
 
 import processing.core.PApplet;
+import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 /**
@@ -72,6 +73,12 @@ public class Application extends PApplet {
 			mainApp.endShape();
 		} else if (event.getButton() == LEFT) {
 			mainApp.endDrag();
+		}
+	}
+
+	public void keyPressed(KeyEvent event) {
+		if (event.getKey() == DELETE) {
+			mainApp.remove();
 		}
 	}
 }
