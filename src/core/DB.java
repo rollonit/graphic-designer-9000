@@ -24,6 +24,10 @@ public class DB {
 	public void read() {
 		ShapeType type;
 
+		Canvas temp = this.canvas;
+
+		this.canvas.deleteAllLayers();
+
 		try {
 			if (db.connect()) {
 				db.query("SELECT * FROM layer ORDER BY #l");
@@ -53,7 +57,7 @@ public class DB {
 					}
 
 					canvas.addToLayer(db.getInt("#l"), type, db.getString("name"), db.getInt("x"), db.getInt("y"),
-							db.getInt("h"), db.getInt("w"), db.getInt("stroke"), db.getInt("color"));
+							db.getInt("w"), db.getInt("h"), db.getInt("stroke"), db.getInt("color"));
 
 					PApplet.print(db.getString("name"));
 					PApplet.print(db.getString("x"));
@@ -62,6 +66,8 @@ public class DB {
 				}
 			}
 		} catch (Exception e) {
+
+			this.canvas = temp;
 			// Your only way to see whether an UPDATE or INSERT statement worked
 			// is when no exception occurred
 			e.printStackTrace();
@@ -75,6 +81,8 @@ public class DB {
 		try {
 			if (db.connect()) {
 
+				db.query("DELETE FROM layer");
+
 				// write layers
 				for (int i = 0; i < canvas.getLayers().size(); i++) {
 					int visible = canvas.getLayer(i).isVisible() ? 1 : 0;
@@ -82,9 +90,11 @@ public class DB {
 							+ ")");
 				}
 
+				db.query("DELETE FROM shape");
+
 				// write shapes
 				for (int i = 0; i < canvas.getLayers().size(); i++) {
-					for (int j = 0; j < layer.getShapes().size(); j++) {
+					for (int j = 0; j < canvas.getLayer(i).getShapes().size(); j++) {
 						switch (canvas.getLayer(i).getShape(j).getType()) {
 						case SQUARE:
 							type = "SQUARE";
