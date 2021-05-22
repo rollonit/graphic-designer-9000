@@ -297,9 +297,7 @@ public class Canvas {
 	 * Deletes all the layers in the current canvas. Use with care!
 	 */
 	public void deleteAllLayers() {
-		for (Layer layer : layers) {
-			layers.remove(layer);
-		}
+		layers.removeAll(layers);
 	}
 
 	public void select() {
