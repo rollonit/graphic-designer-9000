@@ -4,3 +4,4 @@
 /data/*.sql
 /data/*.sqlite
 /data/*.sqlite-journal
+data/db.sqlite

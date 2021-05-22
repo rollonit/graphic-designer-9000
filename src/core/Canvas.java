@@ -111,11 +111,13 @@ public class Canvas {
 		System.out.println("Save Button Triggered!");
 
 		// check if a shape is selected and the new values are within canvas bounds
-		// before saving
-		if (this.getCurrentShape() != null && this.isInCanvas(ui.getObjectX(), ui.getObjectY(),
-				this.getCurrentShape().getH(), this.getCurrentShape().getW())) {
-			this.getCurrentLayer().save(ui.getObjectX(), ui.getObjectY(), ui.getObjectW(), ui.getObjectH(),
-					ui.getObjectColor(), ui.getObjectName());
+		// before saving. This process also offsets the X and Y at every step to account
+		// for the starting point of the canvas itself, in relation to the global
+		// coordinates.
+		if (this.getCurrentShape() != null && this.isInCanvas(ui.getObjectX() + this.CANVASX,
+				ui.getObjectY() + this.CANVASY, this.getCurrentShape().getH(), this.getCurrentShape().getW())) {
+			this.getCurrentLayer().save(ui.getObjectX() + this.CANVASX, ui.getObjectY() + this.CANVASY, ui.getObjectW(),
+					ui.getObjectH(), ui.getObjectColor(), ui.getObjectName());
 		}
 
 	}
@@ -300,9 +302,12 @@ public class Canvas {
 
 	public void updateFields() {
 		if (this.getCurrentShape() != null) {
+
+			// Sets the fields for the object properties, off-setting the X and the Y to
+			// account for the canvas position.
 			ui.setObjectName(this.getCurrentShape().getName());
-			ui.setObjectX(this.getCurrentShape().getX());
-			ui.setObjectY(this.getCurrentShape().getY());
+			ui.setObjectX(this.getCurrentShape().getX() - this.CANVASX);
+			ui.setObjectY(this.getCurrentShape().getY() - this.CANVASY);
 			ui.setObjectW(this.getCurrentShape().getW());
 			ui.setObjectH(this.getCurrentShape().getH());
 			ui.setObjectColor(this.getCurrentShape().getColor());
