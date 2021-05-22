@@ -293,6 +293,15 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * Deletes all the layers in the current canvas. Use with care!
+	 */
+	public void deleteAllLayers() {
+		for (Layer layer : layers) {
+			layers.remove(layer);
+		}
+	}
+
 	public void select() {
 		if (this.isInCanvas(pApplet.mouseX, pApplet.mouseY)) {
 			this.getCurrentLayer().select();
