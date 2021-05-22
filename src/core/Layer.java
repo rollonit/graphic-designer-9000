@@ -139,12 +139,16 @@ public class Layer {
 	 * 
 	 * @param x     The X coordinate of the corner
 	 * @param y     The Y coordinate of the corner
+	 * @param w     The width of the shape
+	 * @param h     The height of the shape
 	 * @param color The color of the shape
 	 * @param name  The name of the shape
 	 */
-	public void save(int x, int y, int color, String name) {
+	public void save(int x, int y, int w, int h, int color, String name) {
 		this.selectedShape().setX(x);
 		this.selectedShape().setY(y);
+		this.selectedShape().setW(w);
+		this.selectedShape().setH(h);
 		this.selectedShape().setColor(color);
 		this.selectedShape().setName(name);
 		this.selectedShape().update();

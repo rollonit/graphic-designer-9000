@@ -99,14 +99,12 @@ public abstract class Shape {
 
 	public void select() {
 		this.isSelected = true;
-		// this.shape.setStroke(stroke + 1);
 		pApplet.cursor(PApplet.HAND);
 		System.out.println("Shape Selected!");
 	}
 
 	public void deselect() {
 		this.isSelected = false;
-		// this.shape.setStroke(stroke - 1);
 		pApplet.cursor(PApplet.ARROW);
 		System.out.println("Shape Deselected");
 	}

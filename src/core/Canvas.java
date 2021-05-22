@@ -114,7 +114,8 @@ public class Canvas {
 		// before saving
 		if (this.getCurrentShape() != null && this.isInCanvas(ui.getObjectX(), ui.getObjectY(),
 				this.getCurrentShape().getH(), this.getCurrentShape().getW())) {
-			this.getCurrentLayer().save(ui.getObjectX(), ui.getObjectY(), ui.getObjectColor(), ui.getObjectName());
+			this.getCurrentLayer().save(ui.getObjectX(), ui.getObjectY(), ui.getObjectW(), ui.getObjectH(),
+					ui.getObjectColor(), ui.getObjectName());
 		}
 
 	}
@@ -302,11 +303,15 @@ public class Canvas {
 			ui.setObjectName(this.getCurrentShape().getName());
 			ui.setObjectX(this.getCurrentShape().getX());
 			ui.setObjectY(this.getCurrentShape().getY());
+			ui.setObjectW(this.getCurrentShape().getW());
+			ui.setObjectH(this.getCurrentShape().getH());
 			ui.setObjectColor(this.getCurrentShape().getColor());
 		} else {
 			ui.setObjectName("");
 			ui.setObjectX("");
 			ui.setObjectY("");
+			ui.setObjectW("");
+			ui.setObjectH("");
 		}
 	}
 

@@ -1,4 +1,5 @@
 package ui;
+
 import controlP5.ColorPicker;
 import controlP5.ControlP5;
 import controlP5.DropdownList;
@@ -17,7 +18,7 @@ public class UI {
 	ControlP5 cp5;
 	Textlabel objProps, backProps, layerHead;
 	Textfield objectName, fileName;
-	Textfield objX, objY, objRot;
+	Textfield objX, objY, objW, objH;
 	ColorPicker objColorPicker, backColorPicker;
 	DropdownList objType;
 
@@ -58,19 +59,25 @@ public class UI {
 		// Object properties boxes		
 		objX = cp5.addTextfield("X")
 					.setPosition(15, UIobjPropsLevel)
-					.setSize(80, 30)
+					.setSize(58, 30)
 					.setFont(UIinputFont)
 					.setColor(UIcolor);
 		
 		objY = cp5.addTextfield("Y")
-					.setPosition(100, UIobjPropsLevel)
-					.setSize(80, 30)
+					.setPosition(79, UIobjPropsLevel)
+					.setSize(58, 30)
 					.setFont(UIinputFont)
 					.setColor(UIcolor);
 		
-		objRot = cp5.addTextfield("ROT")
-					.setPosition(185, UIobjPropsLevel)
-					.setSize(80, 30)
+		objW = cp5.addTextfield("W")
+					.setPosition(143, UIobjPropsLevel)
+					.setSize(58, 30)
+					.setFont(UIinputFont)
+					.setColor(UIcolor);
+
+		objH = cp5.addTextfield("H")
+					.setPosition(207, UIobjPropsLevel)
+					.setSize(58, 30)
 					.setFont(UIinputFont)
 					.setColor(UIcolor);
 		
@@ -171,6 +178,7 @@ public class UI {
 		this.objectName.setText(textToSet);
 	}
 
+	// Object x setters and getters
 	public int getObjectX() {
 		return Integer.parseInt(this.objX.getText());
 	}
@@ -183,6 +191,7 @@ public class UI {
 		this.objX.setText(String.valueOf(valueToSet));
 	}
 
+	// Object Y setters and getters
 	public int getObjectY() {
 		return Integer.parseInt(this.objY.getText());
 	}
@@ -193,6 +202,32 @@ public class UI {
 
 	public void setObjectY(int valueToSet) {
 		this.objY.setText(String.valueOf(valueToSet));
+	}
+
+	// Object width setters and getters
+	public int getObjectW() {
+		return Integer.parseInt(this.objW.getText());
+	}
+
+	public void setObjectW(String valueToSet) {
+		this.objW.setText(String.valueOf(valueToSet));
+	}
+
+	public void setObjectW(int valueToSet) {
+		this.objW.setText(String.valueOf(valueToSet));
+	}
+
+	// Object height setters and getters
+	public int getObjectH() {
+		return Integer.parseInt(this.objH.getText());
+	}
+
+	public void setObjectH(String valueToSet) {
+		this.objH.setText(String.valueOf(valueToSet));
+	}
+
+	public void setObjectH(int valueToSet) {
+		this.objH.setText(String.valueOf(valueToSet));
 	}
 
 	public int getObjectColor() {
