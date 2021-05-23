@@ -1,4 +1,5 @@
 package shapes;
+
 import core.Shape;
 import core.ShapeType;
 import processing.core.PApplet;
@@ -62,5 +63,10 @@ public class Square extends Shape {
 			this.pApplet.ellipse(v.x, v.y, 7, 7);
 		}
 
+	}
+
+	@Override
+	public String getTypeString() {
+		return "SQUARE";
 	}
 }

@@ -1,4 +1,5 @@
 package shapes;
+
 import core.Shape;
 import core.ShapeType;
 import processing.core.PApplet;
@@ -74,5 +75,10 @@ public class Triangle extends Shape {
 			this.pApplet.ellipseMode(PApplet.CENTER);
 			this.pApplet.ellipse(v.x, v.y, 7, 7);
 		}
+	}
+
+	@Override
+	public String getTypeString() {
+		return "TRIANGLE";
 	}
 }

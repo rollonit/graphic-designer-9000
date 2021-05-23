@@ -95,17 +95,7 @@ public class DB {
 				// write shapes
 				for (int i = 0; i < canvas.getLayers().size(); i++) {
 					for (int j = 0; j < canvas.getLayer(i).getShapes().size(); j++) {
-						switch (canvas.getLayer(i).getShape(j).getType()) {
-						case SQUARE:
-							type = "SQUARE";
-							break;
-						case TRIANGLE:
-							type = "TRIANGLE";
-							break;
-						case ELLIPSE:
-							type = "ELLIPSE";
-							break;
-						}
+						type = canvas.getLayer(i).getShape(j).getTypeString();
 
 						db.query("INSERT INTO shape VALUES(\"" + i + "\", \"" + j + "\", \"" + type + "\", \""
 								+ canvas.getLayer(i).getShape(j).getName() + "\",\""

@@ -330,8 +330,8 @@ public class Canvas {
 	/**
 	 * Checks if the given X and Y coordinates are within the canvas.
 	 * 
-	 * @param x X-axis of the point to check
-	 * @param y Y-axis of the point to check.
+	 * @param X X-axis of the point to check.
+	 * @param Y Y-axis of the point to check.
 	 * @return True if the given point is within canvas.
 	 */
 	private boolean isInCanvas(int x, int y) {
