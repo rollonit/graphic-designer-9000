@@ -23,11 +23,8 @@ public class DB {
 
 	public void read() {
 		ShapeType type;
-
 		Canvas temp = this.canvas;
-
 		this.canvas.deleteAllLayers();
-
 		try {
 			if (db.connect()) {
 				db.query("SELECT * FROM layer ORDER BY #l");
@@ -41,7 +38,6 @@ public class DB {
 					PApplet.print(db.getInt("visibility"));
 				}
 			}
-
 			if (db.connect()) {
 				db.query("SELECT * FROM shape ORDER BY #s");
 
@@ -62,7 +58,6 @@ public class DB {
 					PApplet.print(db.getString("name"));
 					PApplet.print(db.getString("x"));
 					PApplet.print(db.getString("y"));
-
 				}
 			}
 		} catch (Exception e) {
@@ -75,12 +70,9 @@ public class DB {
 	}
 
 	public void write() {
-
 		String type = "";
-
 		try {
 			if (db.connect()) {
-
 				db.query("DELETE FROM layer");
 
 				// write layers
@@ -116,16 +108,11 @@ public class DB {
 								+ canvas.getLayer(i).getShape(j).getColor() + "\") ");
 					}
 				}
-
 			}
-
-		}
-
-		catch (Exception e) {
+		} catch (Exception e) {
 			// Your only way to see whether an UPDATE or INSERT statement worked
 			// is when no exception occurred
 			e.printStackTrace();
 		}
 	}
-
 }
