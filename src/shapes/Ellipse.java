@@ -55,10 +55,4 @@ public class Ellipse extends Shape {
 		this.pApplet.ellipse(this.x + this.w, this.y, 7, 7);
 		this.pApplet.ellipse(this.x + this.w, this.y + this.h, 7, 7);
 	}
-
-	@Override
-	public String getTypeString() {
-		return "ELLIPSE";
-	}
-
 }

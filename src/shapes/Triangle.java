@@ -76,9 +76,4 @@ public class Triangle extends Shape {
 			this.pApplet.ellipse(v.x, v.y, 7, 7);
 		}
 	}
-
-	@Override
-	public String getTypeString() {
-		return "TRIANGLE";
-	}
 }

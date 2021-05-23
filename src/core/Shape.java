@@ -47,8 +47,6 @@ public abstract class Shape {
 	public abstract boolean isInShape();
 
 	public abstract void highlightVertices();
-	
-	public abstract String getTypeString();
 
 	protected static int[] translate(int x, int y, int w, int h) {
 		if (h >= 0 && w >= 0) {
