@@ -1,5 +1,7 @@
 package core;
 
+import java.io.PrintWriter;
+
 import de.bezier.data.sql.*;
 import processing.core.PApplet;
 
@@ -14,11 +16,42 @@ public class DB {
 	Canvas canvas;
 	Layer layer;
 	PApplet pApplet;
+	
+	String path;
 
 	public DB(PApplet pApplet, Canvas canvas) {
 		this.canvas = canvas;
 		this.pApplet = pApplet;
-		db = new SQLite(this.pApplet, "data/db.sqlite");
+		
+	}
+	
+	public void init(String connectPath) {
+		this.path = connectPath;
+		
+		PrintWriter temp = this.pApplet.createWriter("data/" + path);
+		temp.close();
+		db = new SQLite(this.pApplet, "data/" + path);
+		
+		
+
+		try {
+			if (db.connect()) {
+				db.query("CREATE TABLE \"canvas\" (\r\n" + "	\"color\"	INTEGER\r\n" + ")");
+				db.query("CREATE TABLE \"layer\" (\r\n" + "	\"#l\"	INTEGER,\r\n" + "	\"name\"	TEXT,\r\n"
+						+ "	\"visibility\"	INTEGER,\r\n" + "	PRIMARY KEY(\"#l\")\r\n" + ")");
+				db.query("CREATE TABLE \"shape\" (\r\n" + "	\"#l\"	INTEGER,\r\n" + "	\"#s\"	INTEGER,\r\n"
+						+ "	\"type\"	TEXT,\r\n" + "	\"name\"	TEXT,\r\n" + "	\"x\"	INTEGER,\r\n"
+						+ "	\"y\"	INTEGER,\r\n" + "	\"h\"	INTEGER,\r\n" + "	\"w\"	INTEGER,\r\n"
+						+ "	\"stroke\"	INTEGER,\r\n" + "	\"color\"	INTEGER,\r\n"
+						+ "	PRIMARY KEY(\"#l\",\"#s\")\r\n" + ")");
+			}
+		}
+
+		catch (Exception e) {
+			// Your only way to see whether an UPDATE or INSERT statement worked
+			// is when no exception occurred
+			e.printStackTrace();
+		}
 	}
 
 	public void read() {
@@ -60,7 +93,7 @@ public class DB {
 					PApplet.print(db.getString("y"));
 				}
 			}
-			
+
 			if (db.connect()) {
 				db.query("SELECT * FROM canvas");
 
@@ -118,9 +151,9 @@ public class DB {
 								+ canvas.getLayer(i).getShape(j).getColor() + "\") ");
 					}
 				}
-				
+
 				db.query("DELETE FROM canvas");
-				
+
 				// write background color
 				db.query("INSERT INTO canvas VALUES(" + canvas.getBackgroundColor() + ")");
 			}
