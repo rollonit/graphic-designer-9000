@@ -256,6 +256,10 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * A function that sets all the shapes in the project to not being dragged at
+	 * the current time. It's kind of a janky solution, but it works.
+	 */
 	private void deMoveAllShapes() {
 		for (Layer layer : layers) {
 			for (Shape shape : layer.getShapes()) {
