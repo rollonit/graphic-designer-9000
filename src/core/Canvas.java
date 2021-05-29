@@ -205,11 +205,13 @@ public class Canvas {
 	public void endDrag() {
 		// Check if the drag is not too small and if the final state of the shape is
 		// within the canvas before finalizing move
-		if (this.draggingShape && (Math.abs(pApplet.mouseX - this.beginX) + Math.abs(pApplet.mouseY - this.beginY) > 5)
-				&& this.isInCanvas(this.getCurrentShape().getX() + (pApplet.mouseX - beginX),
-						this.getCurrentShape().getY() + (pApplet.mouseY - beginY), this.getCurrentShape().getH(),
-						this.getCurrentShape().getW())) {
-			this.getCurrentShape().moveBy(pApplet.mouseX - beginX, pApplet.mouseY - beginY);
+		if (this.draggingShape
+				&& (Math.abs(pApplet.mouseX - this.beginX) + Math.abs(pApplet.mouseY - this.beginY) > 5)) {
+			this.getCurrentShape()
+					.moveTo(PApplet.constrain(this.getCurrentShape().getX() - (this.beginX - this.pApplet.mouseX),
+							this.CANVASX, this.CANVASX + this.CANVASW - this.getCurrentShape().getW()),
+							PApplet.constrain(this.getCurrentShape().getY() - (this.beginY - this.pApplet.mouseY),
+									this.CANVASY, this.CANVASY + this.CANVASH - this.getCurrentShape().getH()));
 			this.updateFields();
 		} else if (this.ui.isInLayerList(pApplet.mouseX, pApplet.mouseY)) {
 			// Handling clicks within the layer box and passing it to the layer list.
