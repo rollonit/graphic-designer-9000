@@ -53,10 +53,10 @@ public abstract class Shape {
 			int[] out = { x, y, w, h };
 			return out;
 		} else if (h >= 0 && w < 0) {
-			int[] out = { x + w, y, x, -h };
+			int[] out = { x + w, y, -w, h };
 			return out;
 		} else if (h < 0 && w >= 0) {
-			int[] out = { x, y + h, -w, y };
+			int[] out = { x, y + h, w, -h };
 			return out;
 		} else {
 			int[] out = { x + w, y + h, -w, -h };

@@ -251,10 +251,9 @@ public class Canvas {
 		// Check if the starting and ending points of drag are within canvas before
 		// creating shape
 		if (this.isInCanvas(beginX, beginY)) {
-			if (this.isInCanvas(endX, endY)) {
-				this.getCurrentLayer().addShape(ui.getCurrentShapeType(), beginX, beginY, endX, endY,
-						ui.getObjectColor());
-			}
+			this.getCurrentLayer().addShape(ui.getCurrentShapeType(), constrainToCanvasX(beginX),
+					constrainToCanvasY(beginY), constrainToCanvasX(endX), constrainToCanvasY(endY),
+					ui.getObjectColor());
 		}
 	}
 
@@ -268,6 +267,14 @@ public class Canvas {
 				shape.setDragging(false);
 			}
 		}
+	}
+
+	private int constrainToCanvasX(int toConstrain) {
+		return PApplet.constrain(toConstrain, this.CANVASX, this.CANVASX + this.CANVASW);
+	}
+
+	private int constrainToCanvasY(int toConstrain) {
+		return PApplet.constrain(toConstrain, this.CANVASY, this.CANVASY + this.CANVASH);
 	}
 
 	/**
