@@ -160,12 +160,6 @@ public class Layer {
 		}
 	}
 
-	public void moveBy(int x, int y) {
-		this.selectedShape().setX(this.selectedShape().getX() + x);
-		this.selectedShape().setY(this.selectedShape().getY() + y);
-		this.selectedShape().update();
-	}
-
 	public void deselectAll() {
 		for (Shape shape : shapes) {
 			shape.deselect();

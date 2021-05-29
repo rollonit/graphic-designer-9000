@@ -209,7 +209,7 @@ public class Canvas {
 				&& this.isInCanvas(this.getCurrentShape().getX() + (pApplet.mouseX - beginX),
 						this.getCurrentShape().getY() + (pApplet.mouseY - beginY), this.getCurrentShape().getH(),
 						this.getCurrentShape().getW())) {
-			this.getCurrentLayer().moveBy(pApplet.mouseX - beginX, pApplet.mouseY - beginY);
+			this.getCurrentShape().moveBy(pApplet.mouseX - beginX, pApplet.mouseY - beginY);
 			this.updateFields();
 		} else if (this.ui.isInLayerList(pApplet.mouseX, pApplet.mouseY)) {
 			// Handling clicks within the layer box and passing it to the layer list.
@@ -222,9 +222,7 @@ public class Canvas {
 
 		// reset cursor
 		this.pApplet.cursor(PApplet.ARROW);
-		if (this.getCurrentShape() != null) {
-			this.getCurrentShape().setDragging(false);
-		}
+		this.deMoveAllShapes();
 		this.draggingShape = false;
 	}
 
@@ -254,6 +252,14 @@ public class Canvas {
 			if (this.isInCanvas(endX, endY)) {
 				this.getCurrentLayer().addShape(ui.getCurrentShapeType(), beginX, beginY, endX, endY,
 						ui.getObjectColor());
+			}
+		}
+	}
+
+	private void deMoveAllShapes() {
+		for (Layer layer : layers) {
+			for (Shape shape : layer.getShapes()) {
+				shape.setDragging(false);
 			}
 		}
 	}

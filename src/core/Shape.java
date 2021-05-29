@@ -97,6 +97,12 @@ public abstract class Shape {
 		}
 	}
 
+	public void moveBy(int x, int y) {
+		this.setX(this.getX() + x);
+		this.setY(this.getY() + y);
+		this.update();
+	}
+
 	public void select() {
 		this.isSelected = true;
 		pApplet.cursor(PApplet.HAND);
