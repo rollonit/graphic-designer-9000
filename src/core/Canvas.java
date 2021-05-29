@@ -66,6 +66,8 @@ public class Canvas {
 	 */
 	public void init() {
 		ui.init();
+		ui.setFileName("fileone.gx9");
+		db.init(ui.getFileName());
 		this.addLayer();
 	}
 
