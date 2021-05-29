@@ -96,8 +96,12 @@ public class Canvas {
 				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), -(beginY - pApplet.mouseY),
 						ui.getObjectColor(), ui.getCurrentShapeType());
 			} else if (this.isInCanvas(this.beginX, this.beginY, -(this.beginX - this.pApplet.mouseX),
-					(this.CANVASY+this.CANVASH-this.pApplet.mouseY))) {
-				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), (this.CANVASY+this.CANVASH-this.beginY),
+					(this.CANVASY + this.CANVASH - this.pApplet.mouseY))) {
+				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX),
+						(this.CANVASY + this.CANVASH - this.beginY), ui.getObjectColor(), ui.getCurrentShapeType());
+			} else if (this.isInCanvas(this.beginX, this.beginY, -(this.beginX - this.pApplet.mouseX),
+					(this.CANVASY - this.pApplet.mouseY))) {
+				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), (this.CANVASY - this.beginY),
 						ui.getObjectColor(), ui.getCurrentShapeType());
 			}
 		}
