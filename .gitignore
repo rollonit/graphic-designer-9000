@@ -5,3 +5,4 @@
 /data/*.sqlite
 /data/*.sqlite-journal
 data/db.sqlite
+data/*gx9
