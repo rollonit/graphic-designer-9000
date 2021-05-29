@@ -90,9 +90,16 @@ public class Canvas {
 		}
 
 		// dynamically draw a shape while it's being created
-		if (creatingShape) {
-			Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), -(beginY - pApplet.mouseY),
-					ui.getObjectColor(), ui.getCurrentShapeType());
+		if (this.creatingShape) {
+			if (this.isInCanvas(this.beginX, this.beginY, -(this.beginX - this.pApplet.mouseX),
+					-(this.beginY - this.pApplet.mouseY))) {
+				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), -(beginY - pApplet.mouseY),
+						ui.getObjectColor(), ui.getCurrentShapeType());
+			} else if (this.isInCanvas(this.beginX, this.beginY, -(this.beginX - this.pApplet.mouseX),
+					(this.CANVASY+this.CANVASH-this.pApplet.mouseY))) {
+				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), (this.CANVASY+this.CANVASH-this.beginY),
+						ui.getObjectColor(), ui.getCurrentShapeType());
+			}
 		}
 
 		// dynamically draw a shape while it's being dragged
@@ -204,7 +211,7 @@ public class Canvas {
 			this.getCurrentLayer().moveBy(pApplet.mouseX - beginX, pApplet.mouseY - beginY);
 			this.updateFields();
 		} else if (this.ui.isInLayerList(pApplet.mouseX, pApplet.mouseY)) {
-			// Handling clicks within the layer box and passing it to the layerlist
+			// Handling clicks within the layer box and passing it to the layer list.
 			ui.layerClick();
 			System.out.println("Mouse was clicked in layerbox!");
 		} else {
