@@ -242,6 +242,10 @@ public class UI {
 		return backColorPicker.getColorValue();
 	}
 
+	public void setBackgroundColor(int theColor) {
+		this.backColorPicker.setColorValue(theColor);
+	}
+
 	public int getCurrentLayerIndex() {
 		return this.layerlist.getCurrentLayerIndex();
 		/*

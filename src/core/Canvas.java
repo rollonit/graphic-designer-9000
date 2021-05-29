@@ -397,4 +397,12 @@ public class Canvas {
 			return null;
 		}
 	}
+
+	public int getBackgroundColor() {
+		return ui.getBackgroundColorValue();
+	}
+
+	public void setBackgroundColor(int theColor) {
+		ui.setBackgroundColor(theColor);
+	}
 }
