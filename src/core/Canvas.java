@@ -90,15 +90,23 @@ public class Canvas {
 		}
 
 		// dynamically draw a shape while it's being created
-		if (creatingShape) {
-			Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), -(beginY - pApplet.mouseY),
+		if (this.creatingShape) {
+			Shape.draw(pApplet, this.beginX, this.beginY,
+					PApplet.constrain(-(this.beginX - this.pApplet.mouseX), (this.CANVASX - this.beginX),
+							(this.CANVASX + this.CANVASW - this.beginX)),
+					PApplet.constrain(-(this.beginY - this.pApplet.mouseY), (this.CANVASY - this.beginY),
+							(this.CANVASY + this.CANVASH - this.beginY)),
 					ui.getObjectColor(), ui.getCurrentShapeType());
 		}
 
 		// dynamically draw a shape while it's being dragged
 		if (this.draggingShape) {
 			Shape cur = this.getCurrentShape();
-			Shape.draw(pApplet, cur.getX() - (beginX - pApplet.mouseX), cur.getY() - (beginY - pApplet.mouseY),
+			Shape.draw(pApplet,
+					PApplet.constrain(cur.getX() - (beginX - pApplet.mouseX), this.CANVASX,
+							this.CANVASX + this.CANVASW - cur.getW()),
+					PApplet.constrain(cur.getY() - (beginY - pApplet.mouseY), this.CANVASY,
+							this.CANVASY + this.CANVASH - cur.getH()),
 					cur.getW(), cur.getH(), cur.getColor(), cur.getType());
 		}
 	}
@@ -204,7 +212,7 @@ public class Canvas {
 			this.getCurrentLayer().moveBy(pApplet.mouseX - beginX, pApplet.mouseY - beginY);
 			this.updateFields();
 		} else if (this.ui.isInLayerList(pApplet.mouseX, pApplet.mouseY)) {
-			// Handling clicks within the layer box and passing it to the layerlist
+			// Handling clicks within the layer box and passing it to the layer list.
 			ui.layerClick();
 			System.out.println("Mouse was clicked in layerbox!");
 		} else {
