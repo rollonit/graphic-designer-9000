@@ -91,19 +91,12 @@ public class Canvas {
 
 		// dynamically draw a shape while it's being created
 		if (this.creatingShape) {
-			if (this.isInCanvas(this.beginX, this.beginY, -(this.beginX - this.pApplet.mouseX),
-					-(this.beginY - this.pApplet.mouseY))) {
-				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), -(beginY - pApplet.mouseY),
-						ui.getObjectColor(), ui.getCurrentShapeType());
-			} else if (this.isInCanvas(this.beginX, this.beginY, -(this.beginX - this.pApplet.mouseX),
-					(this.CANVASY + this.CANVASH - this.pApplet.mouseY))) {
-				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX),
-						(this.CANVASY + this.CANVASH - this.beginY), ui.getObjectColor(), ui.getCurrentShapeType());
-			} else if (this.isInCanvas(this.beginX, this.beginY, -(this.beginX - this.pApplet.mouseX),
-					(this.CANVASY - this.pApplet.mouseY))) {
-				Shape.draw(pApplet, beginX, beginY, -(beginX - pApplet.mouseX), (this.CANVASY - this.beginY),
-						ui.getObjectColor(), ui.getCurrentShapeType());
-			}
+			Shape.draw(pApplet, this.beginX, this.beginY,
+					PApplet.constrain(-(this.beginX - this.pApplet.mouseX), (this.CANVASX - this.beginX),
+							(this.CANVASX + this.CANVASW - this.beginX)),
+					PApplet.constrain(-(this.beginY - this.pApplet.mouseY), (this.CANVASY - this.beginY),
+							(this.CANVASY + this.CANVASH - this.beginY)),
+					ui.getObjectColor(), ui.getCurrentShapeType());
 		}
 
 		// dynamically draw a shape while it's being dragged
