@@ -13,19 +13,20 @@ import processing.core.PFont;
 import java.util.HashMap;
 
 public class UI {
-	PApplet pApplet;
+	private PApplet pApplet;
 
-	ControlP5 cp5;
-	Textlabel objProps, backProps, layerHead;
-	Textfield objectName, fileName;
-	Textfield objX, objY, objW, objH;
-	ColorPicker objColorPicker, backColorPicker;
-	DropdownList objType;
+	private ControlP5 cp5;
+	@SuppressWarnings("unused")
+	private Textlabel objProps, backProps, layerHead;
+	private Textfield objectName, fileName;
+	private Textfield objX, objY, objW, objH;
+	private ColorPicker objColorPicker, backColorPicker;
+	private DropdownList objType;
 
-	LayerList layerlist;
+	private LayerList layerlist;
 
 	int UIcolor;
-	PFont UIinputFont, UIheadFont;
+	private PFont UIinputFont, UIheadFont;
 	int UIobjPropsLevel, UIobjButtonLevel;
 
 	public UI(PApplet pApplet, Canvas canvas) {

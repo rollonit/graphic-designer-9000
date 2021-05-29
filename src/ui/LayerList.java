@@ -14,8 +14,8 @@ import processing.core.PShape;
  * </p>
  */
 public class LayerList {
-	PApplet pApplet;
-	Canvas canvas;
+	private PApplet pApplet;
+	private Canvas canvas;
 
 	private int x;
 	private int y;
@@ -29,7 +29,7 @@ public class LayerList {
 	private int visBoxX, visBoxY, visBoxSide;
 	private int moveUpX, moveDownX, moveY, moveSide;
 
-	PShape eye, up, down;
+	private PShape eye, up, down;
 
 	/**
 	 * Default constructor that creates a layer list UI element in with the supplied

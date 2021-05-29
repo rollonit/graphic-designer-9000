@@ -20,16 +20,16 @@ public class Canvas {
 	private int CANVASW;
 	private int CANVASH;
 
-	PApplet pApplet;
+	private PApplet pApplet;
 
 	private ArrayList<Layer> layers;
 
 	private int beginX, beginY;
 	private boolean creatingShape, draggingShape;
-
-	UI ui;
-	DB db;
 	private int highestLayer;
+
+	private UI ui;
+	private DB db;
 
 	/**
 	 * Default constructor for the canvas class.

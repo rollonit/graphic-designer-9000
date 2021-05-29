@@ -13,7 +13,7 @@ import shapes.Triangle;
 public class Layer {
 	private ArrayList<Shape> shapes;
 
-	PApplet pApplet;
+	private PApplet pApplet;
 	private boolean isVisible;
 	private String name;
 
