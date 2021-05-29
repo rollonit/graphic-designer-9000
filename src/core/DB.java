@@ -29,7 +29,7 @@ public class DB {
 			if (db.connect()) {
 				db.query("SELECT * FROM layer ORDER BY #l");
 
-				// catching the latest information
+				// catching the latest layer
 				while (db.next()) {
 
 					canvas.addLayer(db.getString("name"), (db.getInt("visibility") == 1) ? true : false);
@@ -41,7 +41,7 @@ public class DB {
 			if (db.connect()) {
 				db.query("SELECT * FROM shape ORDER BY #s");
 
-				// catching the latest information
+				// catching the latest shape
 				while (db.next()) {
 
 					if (db.getString("type").equals("SQUARE")) {
@@ -58,6 +58,16 @@ public class DB {
 					PApplet.print(db.getString("name"));
 					PApplet.print(db.getString("x"));
 					PApplet.print(db.getString("y"));
+				}
+			}
+			
+			if (db.connect()) {
+				db.query("SELECT * FROM canvas");
+
+				// catching the latest background color
+				while (db.next()) {
+
+					canvas.setBackgroundColor(db.getInt("color"));
 				}
 			}
 		} catch (Exception e) {
@@ -108,6 +118,11 @@ public class DB {
 								+ canvas.getLayer(i).getShape(j).getColor() + "\") ");
 					}
 				}
+				
+				db.query("DELETE FROM canvas");
+				
+				// write background color
+				db.query("INSERT INTO canvas VALUES(" + canvas.getBackgroundColor() + ")");
 			}
 		} catch (Exception e) {
 			// Your only way to see whether an UPDATE or INSERT statement worked
