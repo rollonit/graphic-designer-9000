@@ -256,6 +256,14 @@ public class UI {
 		 */
 	}
 
+	public String getFileName() {
+		return this.fileName.getStringValue();
+	}
+
+	public void setFileName(String nameToSet) {
+		this.fileName.setStringValue(nameToSet);
+	}
+
 	private String getCurrentShape() {
 		return ((HashMap<String, Object>) (objType.getItem((int) (objType.getValue())))).get("value").toString();
 	}
