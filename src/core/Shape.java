@@ -129,14 +129,17 @@ public abstract class Shape {
 	}
 
 	/**
-	 * A static method that draws a temporary shape with the given characteristics for one frame. Used to temporarily and dynamically display shapes.
-	 * @param p The pApplet object handle
-	 * @param x	The X-coordinate of the shape to draw
-	 * @param y	The Y-coordinate of the shape to draw
-	 * @param w	The width of the shape to draw
-	 * @param h	The height of the shape to draw
+	 * A static method that draws a temporary shape with the given characteristics
+	 * for one frame. Used to temporarily and dynamically display shapes.
+	 * 
+	 * @param p     The pApplet object handle
+	 * @param x     The X-coordinate of the shape to draw
+	 * @param y     The Y-coordinate of the shape to draw
+	 * @param w     The width of the shape to draw
+	 * @param h     The height of the shape to draw
 	 * @param color The color of the shape to draw
-	 * @param type The type of the shape to draw. Currently supported are SQUARE, TRIANGLE and ELLIPSE.
+	 * @param type  The type of the shape to draw. Currently supported are SQUARE,
+	 *              TRIANGLE and ELLIPSE.
 	 */
 	public static void draw(PApplet p, int x, int y, int w, int h, int color, ShapeType type) {
 		p.fill(color);
@@ -157,7 +160,9 @@ public abstract class Shape {
 	}
 
 	/**
-	 * Moves this shape relatively by a certain amount. Use moveTo() for absolute position.
+	 * Moves this shape relatively by a certain amount. Use moveTo() for absolute
+	 * position.
+	 * 
 	 * @param x The amount to change the X-coordinate by.
 	 * @param y The amount to change the Y-coordinate by.
 	 */
@@ -169,6 +174,7 @@ public abstract class Shape {
 
 	/**
 	 * Moves the shape to an absolute point. Use moveBy() for relative movements.
+	 * 
 	 * @param x The new X-coordinate.
 	 * @param y The new Y-coordinate.
 	 */
@@ -203,8 +209,8 @@ public abstract class Shape {
 		return this.isSelected;
 	}
 
-	//Getters and setters
-	
+	// Getters and setters
+
 	public String getName() {
 		return this.name;
 	}
