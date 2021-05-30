@@ -20,7 +20,7 @@ public class DB {
 	String path;
 
 	/**
-	 * Creates a new DB and ossociates it with the main pApplet and the Canvas.
+	 * Creates a new DB and associates it with the main pApplet and the Canvas.
 	 * 
 	 * @param pApplet The handle of the pApplet
 	 * @param canvas  The handle of the canvas
@@ -35,7 +35,7 @@ public class DB {
 	 * Initializes the DB. It creates a new file if a file with the given name
 	 * doesn't exist and prepares it for data entry if is empty.
 	 * 
-	 * @param connectPath The path to initialize the databse with
+	 * @param connectPath The path to initialize the database with
 	 */
 	public void init(String connectPath) {
 		this.path = connectPath;
@@ -46,16 +46,14 @@ public class DB {
 
 		try {
 			if (db.connect()) {
-				if (this.hasData()) {
-					db.query("CREATE TABLE \"canvas\" (\r\n" + "	\"color\"	INTEGER\r\n" + ")");
-					db.query("CREATE TABLE \"layer\" (\r\n" + "	\"#l\"	INTEGER,\r\n" + "	\"name\"	TEXT,\r\n"
-							+ "	\"visibility\"	INTEGER,\r\n" + "	PRIMARY KEY(\"#l\")\r\n" + ")");
-					db.query("CREATE TABLE \"shape\" (\r\n" + "	\"#l\"	INTEGER,\r\n" + "	\"#s\"	INTEGER,\r\n"
-							+ "	\"type\"	TEXT,\r\n" + "	\"name\"	TEXT,\r\n" + "	\"x\"	INTEGER,\r\n"
-							+ "	\"y\"	INTEGER,\r\n" + "	\"h\"	INTEGER,\r\n" + "	\"w\"	INTEGER,\r\n"
-							+ "	\"stroke\"	INTEGER,\r\n" + "	\"color\"	INTEGER,\r\n"
-							+ "	PRIMARY KEY(\"#l\",\"#s\")\r\n" + ")");
-				}
+				db.query("CREATE TABLE \"canvas\" (\r\n" + "	\"color\"	INTEGER\r\n" + ")");
+				db.query("CREATE TABLE \"layer\" (\r\n" + "	\"#l\"	INTEGER,\r\n" + "	\"name\"	TEXT,\r\n"
+						+ "	\"visibility\"	INTEGER,\r\n" + "	PRIMARY KEY(\"#l\")\r\n" + ")");
+				db.query("CREATE TABLE \"shape\" (\r\n" + "	\"#l\"	INTEGER,\r\n" + "	\"#s\"	INTEGER,\r\n"
+						+ "	\"type\"	TEXT,\r\n" + "	\"name\"	TEXT,\r\n" + "	\"x\"	INTEGER,\r\n"
+						+ "	\"y\"	INTEGER,\r\n" + "	\"h\"	INTEGER,\r\n" + "	\"w\"	INTEGER,\r\n"
+						+ "	\"stroke\"	INTEGER,\r\n" + "	\"color\"	INTEGER,\r\n"
+						+ "	PRIMARY KEY(\"#l\",\"#s\")\r\n" + ")");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
