@@ -6,8 +6,8 @@ import processing.core.PShape;
 
 /**
  * <h1>Layer List</h1>
- * <h3>A custom layer list UI element with visibility and layer
- * re-arrangement features.</h3>
+ * <h3>A custom layer list UI element with visibility and layer re-arrangement
+ * features.</h3>
  * <p>
  * Each layer item has a move up and a move down buttons, which can be used to
  * rearrange them. It also has a visibility toggle.
@@ -102,6 +102,11 @@ public class LayerList {
 		}
 	}
 
+	/**
+	 * Removes the currently selected layer and resets the selected layer index
+	 * accordingly. Doesn't work if there is only one layer left, becuase that
+	 * wouldn't make sense.
+	 */
 	public void removeSelectedLayer() {
 		if (this.canvas.getLayers().size() > 1) {
 			this.canvas.removeLayer(this.getCurrentLayerIndex());
@@ -176,12 +181,24 @@ public class LayerList {
 				&& y <= (this.y + (index * this.listWidth)) + this.listWidth);
 	}
 
+	/**
+	 * Checks if a point is within the visibility toggle box of a list item.
+	 * 
+	 * @param x     The X coordinate of the point
+	 * @param y     The Y coordinate of the point
+	 * @param index The index of the list item to check for
+	 * @return True if the point is within the visibility box of that list item
+	 */
 	private boolean isInVisBox(int x, int y, int index) {
 		this.visBoxY = this.y + (index * listWidth) + this.visBoxPadding;
 		return (x >= this.visBoxX && x <= this.visBoxX + this.visBoxSide)
 				&& (y >= this.visBoxY && y <= this.visBoxY + this.visBoxSide);
 	}
 
+	/**
+	 * Handles a click within the layer list, deciding what action to perform
+	 * depending on where in the layer list the click was.
+	 */
 	public void click() {
 		for (int i = 0; i < canvas.getLayers().size(); i++) {
 			// If the mouse is in a particular list item.
