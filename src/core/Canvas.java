@@ -232,7 +232,7 @@ public class Canvas {
 	}
 
 	/**
-	 * Ends the dragging process and actually performs the move operarion. Call
+	 * Ends the dragging process and actually performs the move operation. Call
 	 * beginDrag() before this!
 	 */
 	public void endDrag() {
@@ -365,7 +365,7 @@ public class Canvas {
 	 * 
 	 * @param layerToMove The index of the layer to be moved.
 	 * @param whereToMove the index to which the layer is to be moved.
-	 * @return 1 if the move operation is succesful, 0 otherwise
+	 * @return 1 if the move operation is successful, 0 otherwise
 	 */
 	public int moveLayer(int layerToMove, int whereToMove) {
 		if ((layerToMove < 0 || layerToMove >= layers.size()) || (whereToMove < 0 || whereToMove >= layers.size())) {

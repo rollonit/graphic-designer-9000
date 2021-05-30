@@ -135,7 +135,7 @@ public class Layer {
 	}
 
 	/**
-	 * Updates the currently selected shape with the parameneter provided.
+	 * Updates the currently selected shape with the parameter provided.
 	 * 
 	 * @param x     The X coordinate of the corner
 	 * @param y     The Y coordinate of the corner
@@ -194,7 +194,7 @@ public class Layer {
 	}
 
 	/**
-	 * Toggles the visiblity of the current layer.
+	 * Toggles the visibility of the current layer.
 	 */
 	public void toggleVisibility() {
 		this.isVisible = !this.isVisible;

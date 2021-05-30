@@ -68,7 +68,7 @@ public class DB {
 	}
 
 	/**
-	 * Changes the file the DB is linked to and reinitializes the file, uless the
+	 * Changes the file the DB is linked to and reinitializes the file, unless the
 	 * new path is empty.
 	 * 
 	 * @param newPath The new path to a file

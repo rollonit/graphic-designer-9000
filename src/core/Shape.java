@@ -36,7 +36,7 @@ public abstract class Shape {
 	protected ShapeType type;
 
 	/**
-	 * Cretaes a new shape and associates it with the main pApplet.
+	 * Creates a new shape and associates it with the main pApplet.
 	 * 
 	 * @param pApplet The handle of the main pApplet.
 	 */
@@ -58,7 +58,7 @@ public abstract class Shape {
 	public abstract void create(int x, int y, int w, int h, int stroke, int color);
 
 	/**
-	 * Updates the internal PShape if any of the attribues have changed.
+	 * Updates the internal PShape if any of the attributes have changed.
 	 */
 	public abstract void update();
 
@@ -70,13 +70,13 @@ public abstract class Shape {
 	public abstract boolean isInShape();
 
 	/**
-	 * Hilights all the vertices of the shape with little red circles, used so that
+	 * Highlights all the vertices of the shape with little red circles, used so that
 	 * the user can see if the shape is selected.
 	 */
 	public abstract void highlightVertices();
 
 	/**
-	 * Translates possible wonky X, Y, width and height parameters (for example, if
+	 * Translates possibly bad X, Y, width and height parameters (for example, if
 	 * the shape is created in a bottom left to top right direction, creating
 	 * negative width and height) to proper attributes with a positive width and
 	 * height.
@@ -194,7 +194,7 @@ public abstract class Shape {
 	}
 
 	/**
-	 * Deslects this shape and stops highlighting it.
+	 * Deselects this shape and stops highlighting it.
 	 */
 	public void deselect() {
 		this.isSelected = false;

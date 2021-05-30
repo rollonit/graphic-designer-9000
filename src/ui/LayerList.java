@@ -104,7 +104,7 @@ public class LayerList {
 
 	/**
 	 * Removes the currently selected layer and resets the selected layer index
-	 * accordingly. Doesn't work if there is only one layer left, becuase that
+	 * accordingly. Doesn't work if there is only one layer left, because that
 	 * wouldn't make sense.
 	 */
 	public void removeSelectedLayer() {
