@@ -154,18 +154,29 @@ public class Layer {
 		this.selectedShape().update();
 	}
 
+	/**
+	 * Removes the currently selected shape if one is selected.
+	 */
 	public void remove() {
 		if (this.selectedShape() != null) {
 			shapes.remove(this.selectedShape());
 		}
 	}
 
+	/**
+	 * Deselects all the shapes.
+	 */
 	public void deselectAll() {
 		for (Shape shape : shapes) {
 			shape.deselect();
 		}
 	}
 
+	/**
+	 * Get the currently selected shape.
+	 * 
+	 * @return The currently selected shape as a Shape object.
+	 */
 	public Shape selectedShape() {
 		for (Shape shape : shapes) {
 			if (shape.isSelected()) {
@@ -175,26 +186,47 @@ public class Layer {
 		return null;
 	}
 
+	/**
+	 * @return True if this layer is visible.
+	 */
 	public boolean isVisible() {
 		return this.isVisible;
 	}
 
+	/**
+	 * Toggles the visiblity of the current layer.
+	 */
 	public void toggleVisibility() {
 		this.isVisible = !this.isVisible;
 	}
 
+	/**
+	 * @return The name of the current layer.
+	 */
 	public String getName() {
 		return this.name;
 	}
 
+	/**
+	 * @param nameToSet The new name to set for the current layer.
+	 */
 	public void setName(String nameToSet) {
 		this.name = nameToSet;
 	}
 
+	/**
+	 * @return All the shapes in the layer in an ArrayList.
+	 */
 	public ArrayList<Shape> getShapes() {
 		return this.shapes;
 	}
 
+	/**
+	 * Gets a specific shape from this layer.
+	 * 
+	 * @param index Index of the shape to get.
+	 * @return The shape at that index.
+	 */
 	public Shape getShape(int index) {
 		if (index >= 0 && index < shapes.size()) {
 			return shapes.get(index);
