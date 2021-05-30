@@ -145,6 +145,9 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * Adds a new layer to the canvas.
+	 */
 	public void addLayer() {
 		layers.add(new Layer(pApplet, this.highestLayer++));
 	}
@@ -159,15 +162,29 @@ public class Canvas {
 		layers.add(new Layer(pApplet, name, visibility));
 	}
 
+	/**
+	 * Removes the currently selected layer from the canvas.
+	 */
 	public void removeSelectedLayer() {
 		ui.removeSelectedLayer();
 	}
 
+	/**
+	 * Removes a specific layer from the canvas.
+	 * 
+	 * @param index
+	 */
 	public void removeLayer(int index) {
 		layers.remove(index);
 	}
 
 	// SHAPE CREATION FUNTIONS
+
+	/**
+	 * Starts the creation process for a shape, storing the beginning point of the
+	 * shape. Doesn't actually add a shape to the canvas yet! Call endshape() to
+	 * finish the creation process.
+	 */
 	public void beginShape() {
 
 		// Store beginning of drag and start shape creation if the start is in the
@@ -179,6 +196,10 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * Finishes the shape creation process and adds a shape to the current layer in
+	 * the canvas. beginShape() must be called before this.
+	 */
 	public void endShape() {
 		int finalX = pApplet.mouseX;
 		int finalY = pApplet.mouseY;
@@ -190,6 +211,12 @@ public class Canvas {
 	}
 
 	// SHAPE MOVING FUNCTIONS
+
+	/**
+	 * Begins the shape dragging process. Sets a flag on the shape so it's not drawn
+	 * while the temporary shape is being drawn. Call endDrag() to finish the moving
+	 * process.
+	 */
 	public void beginDrag() {
 		// Check if left-click drag is in a shape and that shape is selected, and start
 		// shape move
@@ -204,6 +231,10 @@ public class Canvas {
 		this.beginY = pApplet.mouseY;
 	}
 
+	/**
+	 * Ends the dragging process and actually performs the move operarion. Call
+	 * beginDrag() before this!
+	 */
 	public void endDrag() {
 		// Check if the drag is not too small and if the final state of the shape is
 		// within the canvas before finalizing move
@@ -232,6 +263,10 @@ public class Canvas {
 
 	// FILE OPERATIONS
 
+	/**
+	 * Performs some checks to make sure that the file actually has data and loads
+	 * the data from the current file.
+	 */
 	public void loadFile() {
 		if (!ui.getFileName().equals(db.getPath())) {
 			db.setPath(ui.getFileName());
@@ -243,6 +278,9 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * Saves the data to the current file.
+	 */
 	public void saveFile() {
 		if (!ui.getFileName().equals(db.getPath())) {
 			db.setPath(ui.getFileName());
@@ -251,6 +289,7 @@ public class Canvas {
 	}
 
 	// UTILITY FUNCTIONS
+
 	/**
 	 * Add a shape to the currently selected layer.
 	 * 
@@ -281,10 +320,22 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * Constrains a value to the X bounds of the canvas.
+	 * 
+	 * @param toConstrain Value to constrain.
+	 * @return The constrained value.
+	 */
 	private int constrainToCanvasX(int toConstrain) {
 		return PApplet.constrain(toConstrain, this.CANVASX, this.CANVASX + this.CANVASW);
 	}
 
+	/**
+	 * Constrains a value to the Y bounds of the canvas.
+	 * 
+	 * @param toConstrain Value to constrain.
+	 * @return The constrained value.
+	 */
 	private int constrainToCanvasY(int toConstrain) {
 		return PApplet.constrain(toConstrain, this.CANVASY, this.CANVASY + this.CANVASH);
 	}
@@ -339,6 +390,9 @@ public class Canvas {
 		layers.removeAll(layers);
 	}
 
+	/**
+	 * Performs the select operation at the current mouse position.
+	 */
 	public void select() {
 		if (this.isInCanvas(pApplet.mouseX, pApplet.mouseY)) {
 			this.getCurrentLayer().select();
@@ -346,6 +400,10 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * Updates all the text fields to the current values from the current shape. It
+	 * also offsets the X and Y to account for the canvas position.
+	 */
 	public void updateFields() {
 		if (this.getCurrentShape() != null) {
 
@@ -390,18 +448,33 @@ public class Canvas {
 		return (this.isInCanvas(x, y) && this.isInCanvas(x + h, y + w));
 	}
 
+	/**
+	 * @return The currently selected object as a Layer object.
+	 */
 	private Layer getCurrentLayer() {
 		return layers.get(ui.getCurrentLayerIndex());
 	}
 
+	/**
+	 * @return The currently selected shape as a Shape object.
+	 */
 	private Shape getCurrentShape() {
 		return this.getCurrentLayer().selectedShape();
 	}
 
+	/**
+	 * @return All the layers in the canvas in an ArrayList.
+	 */
 	public ArrayList<Layer> getLayers() {
 		return layers;
 	}
 
+	/**
+	 * Gets a specific layer, if the layer actually exists.
+	 * 
+	 * @param index The index of the layer to get.
+	 * @return The layer at that index as a Layer object.
+	 */
 	public Layer getLayer(int index) {
 		if (index >= 0 && index < layers.size()) {
 			return layers.get(index);
@@ -410,10 +483,16 @@ public class Canvas {
 		}
 	}
 
+	/**
+	 * @return The current background color as an int.
+	 */
 	public int getBackgroundColor() {
 		return ui.getBackgroundColorValue();
 	}
 
+	/**
+	 * @param theColor The color to set the background to.
+	 */
 	public void setBackgroundColor(int theColor) {
 		ui.setBackgroundColor(theColor);
 	}
