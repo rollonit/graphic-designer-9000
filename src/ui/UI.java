@@ -12,6 +12,9 @@ import processing.core.PFont;
 
 import java.util.HashMap;
 
+/**
+ * Handles all of the UI elements and their setters and getters for the canvas class.
+ */
 public class UI {
 	private PApplet pApplet;
 
@@ -40,6 +43,9 @@ public class UI {
 		UIobjButtonLevel = 350;
 	}
 
+	/**
+	 * Initializes all of the UI elements. Must be called before anything else.
+	 */
 	public void init() {
 		pApplet.background(25);
 
