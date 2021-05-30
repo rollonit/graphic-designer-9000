@@ -144,7 +144,6 @@ public class UI {
 						.setPosition(1015, 580)
 						.setSize(250, 30)
 						.setFont(UIinputFont)
-						.setFocus(true)
 						.setColor(UIcolor);
 
 		cp5.addButton("loadFile")
@@ -258,11 +257,11 @@ public class UI {
 	}
 
 	public String getFileName() {
-		return this.fileName.getStringValue();
+		return this.fileName.getText();
 	}
 
 	public void setFileName(String nameToSet) {
-		this.fileName.setStringValue(nameToSet);
+		this.fileName.setText(nameToSet);
 	}
 
 	private String getCurrentShape() {

@@ -66,7 +66,7 @@ public class Canvas {
 	 */
 	public void init() {
 		ui.init();
-		ui.setFileName("fileone.gx9");
+		ui.setFileName("file1");
 		db.init(ui.getFileName());
 		this.addLayer();
 	}
@@ -233,10 +233,20 @@ public class Canvas {
 	// FILE OPERATIONS
 
 	public void loadFile() {
-		db.read();
+		if (!ui.getFileName().equals(db.getPath())) {
+			db.setPath(ui.getFileName());
+		}
+		if (db.hasData()) {
+			db.read();
+		} else {
+			System.out.println("No data in this file yet!");
+		}
 	}
 
 	public void saveFile() {
+		if (!ui.getFileName().equals(db.getPath())) {
+			db.setPath(ui.getFileName());
+		}
 		db.write();
 	}
 

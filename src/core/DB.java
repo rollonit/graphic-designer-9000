@@ -16,23 +16,21 @@ public class DB {
 	Canvas canvas;
 	Layer layer;
 	PApplet pApplet;
-	
+
 	String path;
 
 	public DB(PApplet pApplet, Canvas canvas) {
 		this.canvas = canvas;
 		this.pApplet = pApplet;
-		
+
 	}
-	
+
 	public void init(String connectPath) {
 		this.path = connectPath;
-		
-		PrintWriter temp = this.pApplet.createWriter("data/" + path);
+
+		PrintWriter temp = this.pApplet.createWriter("data/" + path + ".gx9");
 		temp.close();
-		db = new SQLite(this.pApplet, "data/" + path);
-		
-		
+		db = new SQLite(this.pApplet, "data/" + path + ".gx9");
 
 		try {
 			if (db.connect()) {
@@ -45,13 +43,19 @@ public class DB {
 						+ "	\"stroke\"	INTEGER,\r\n" + "	\"color\"	INTEGER,\r\n"
 						+ "	PRIMARY KEY(\"#l\",\"#s\")\r\n" + ")");
 			}
-		}
-
-		catch (Exception e) {
+		} catch (Exception e) {
 			// Your only way to see whether an UPDATE or INSERT statement worked
 			// is when no exception occurred
 			e.printStackTrace();
 		}
+	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String newPath) {
+		this.init(newPath);
 	}
 
 	public void read() {
@@ -162,5 +166,20 @@ public class DB {
 			// is when no exception occurred
 			e.printStackTrace();
 		}
+	}
+
+	public boolean hasData() {
+		boolean hasData = false;
+		try {
+			if (db.connect()) {
+				db.query("SELECT COUNT(*) FROM canvas");
+				db.next();
+				int x = db.getInt(1);
+				hasData = x > 0 ? true : false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return hasData;
 	}
 }

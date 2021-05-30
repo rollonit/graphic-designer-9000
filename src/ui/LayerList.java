@@ -6,7 +6,7 @@ import processing.core.PShape;
 
 /**
  * <h1>Layer List</h1>
- * <h3>A custom layer list UI element on with visibility and layer
+ * <h3>A custom layer list UI element with visibility and layer
  * re-arrangement features.</h3>
  * <p>
  * Each layer item has a move up and a move down buttons, which can be used to
