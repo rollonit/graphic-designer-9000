@@ -1,7 +1,5 @@
 package core;
 
-import java.io.PrintWriter;
-
 import de.bezier.data.sql.*;
 import processing.core.PApplet;
 
@@ -40,8 +38,6 @@ public class DB {
 	public void init(String connectPath) {
 		this.path = connectPath;
 
-		PrintWriter temp = this.pApplet.createWriter("data/" + path + ".gx9");
-		temp.close();
 		db = new SQLite(this.pApplet, "data/" + path + ".gx9");
 
 		try {
@@ -74,7 +70,7 @@ public class DB {
 	 * @param newPath The new path to a file
 	 */
 	public void setPath(String newPath) {
-		if (newPath.equals("")) {
+		if (!newPath.equals("")) {
 			this.init(newPath);
 		}
 	}
